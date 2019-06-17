@@ -1,25 +1,73 @@
-import _ from 'lodash';
-import './style.css';
-import Icon from './icon.svg';
-import * as THREE from 'three';
+// import _ from 'lodash';
+// import './style.css';
+// import Icon from './icon.svg';
+// import * as THREE from 'three';
 
-function component() {
-    const element = document.createElement('div');
+  //random characters
+
+  const bob = {name: "Bob", skills: "Engineering"}
 
 
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
+  document.addEventListener('DOMContentLoaded', () =>  {
+    let startButton = document.getElementById('start-game')
 
-    // Add the image to our existing div.
-   const myIcon = new Image();
-   myIcon.src = Icon;
+    startButton.addEventListener('click', () => {
+      startButton.parentNode.parentNode.classList = "hidden"
+    })
 
-   element.appendChild(myIcon);
+    let crewButton = document.getElementById('add-crew')
+    crewButton.addEventListener('click', () => {
+      let container = document.createElement('div')
+      container.id = "container-popup"
 
-    return element;
-  }
+      let closeButton = document.createElement('button')
+      closeButton.textContent = "X"
+      closeButton.style= "float:right;"
+      
+      closeButton.addEventListener('click', () => {
+        closeButton.parentNode.parentNode.classList = 'hidden'
+      })
+     
 
-  document.body.appendChild(component());
+      let div = document.createElement('div')
+      div.classList = "crew-popup"
+
+      let ul = document.createElement('ul')
+      ul.id = "crew-options"
+
+      let li = document.createElement('li')
+
+      li.classList = "crew-list"
+
+      let h3 = document.createElement('h3')
+      h3.textContent = "Name: " + bob.name
+
+      let p = document.createElement('p') 
+      p.textContent = "Skills: " + bob.skills
+
+      addCrewMemberBtn = document.createElement('button') 
+      addCrewMemberBtn.textContent = "Add Crew Member"
+
+      addCrewMemberBtn.addEventListener('click', () => {
+        
+      })
+
+      li.appendChild(h3)
+      li.appendChild(p)
+
+      ul.appendChild(li)
+      div.appendChild(closeButton)
+      div.appendChild(ul)
+      container.appendChild(div)
+      document.body.appendChild(container)
+
+
+
+
+    })
+
+    
+  })
 
 // var scene = new THREE.Scene();
 // var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -64,17 +112,17 @@ function component() {
 // scene.add( line );
 // renderer.render( scene, camera );
 
-var THREE = window.THREE = require('three');
-require('three/examples/js/loaders/GLTFLoader')
+// var THREE = window.THREE = require('three');
+// require('three/examples/js/loaders/GLTFLoader')
 
-var loader = new THREE.GLTFLoader();
+// var loader = new THREE.GLTFLoader();
 
-loader.load( 'path/to/model.glb', function ( gltf ) {
+// loader.load( 'path/to/model.glb', function ( gltf ) {
 
-	scene.add( gltf.scene );
+// 	scene.add( gltf.scene );
 
-}, undefined, function ( error ) {
+// }, undefined, function ( error ) {
 
-	console.error( error );
+// 	console.error( error );
 
-} );
+// } );

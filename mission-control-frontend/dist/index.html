@@ -7,25 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../src/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="script" href="./src/index.js">
+    <script type="text/javascript" src="../src/index.js"></script>
     <link rel="stylesheet" href="bundle.js">
     <title>Document</title>
 </head>
+
 <body>
-  
+<div id="container-popup">
+    <div class="popup">
+       <button class="pbutton bounceIn" id="start-game">Play Our game</button>
+    </div>
+</div>
 
     <div class="panels">
     <div class="row">
-        <div class="column left" style="background-color:#aaa;">
-            <h2>Destination</h2>
-            <p>Some text..</p>
+        <div class="column left destination" style="background-image: url(https://i.pinimg.com/originals/b2/f1/17/b2f1177cea910d95dca3048224b419d6.gif);background-position: center;">
+           <h1>Destination</h1>
         </div>
         <div class="column middle" style="background-color:#bbb;">
             <img src="https://wallimpex.com/data/out/804/spaceship-control-panel-wallpaper-11503007.jpg" alt="">
         </div>
         <div class="column right" style="background-color:#ccc;">
-            <h2>Crew Members</h2>
-            <p>Some text..</p>
+            <button id="add-crew" class="btn btn-primary">Manage Crew</button>
+            <ul id="crew-ul"></ul>
         </div>
     </div>
     </div>
@@ -48,6 +52,9 @@
 
 
     </div>
+
+
+
     <div class="cmd-center">
         <div class="wrapper">
             <div class="monitor">
@@ -72,7 +79,7 @@
                 </div>
                 <br>
                 <div id="o2-btn" class="o2-btn">
-                    <button type="button" class="btn btn-info">O2</button>
+                    <button type="button" class="btn btn-info">O₂</button>
                     <div class="o2-bar">
                         <div class="o2-stat"></div>
                     </div>
