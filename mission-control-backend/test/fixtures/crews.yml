@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  skill: MyString
+  cost: 1
+  mission: one
+
+two:
+  name: MyString
+  skill: MyString
+  cost: 1
+  mission: two
