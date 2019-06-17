@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  food: 1
+  oxygen: 1
+  fuel: 1
+  medicine: 1
+  mission: one
+
+two:
+  food: 1
+  oxygen: 1
+  fuel: 1
+  medicine: 1
+  mission: two
