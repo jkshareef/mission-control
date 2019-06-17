@@ -1,25 +1,8 @@
 import _ from 'lodash';
 import './style.css';
 import Icon from './icon.svg';
-import * as THREE from 'three';
+// import * as THREE from 'three';
 
-function component() {
-    const element = document.createElement('div');
-
-
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
-
-    // Add the image to our existing div.
-   const myIcon = new Image();
-   myIcon.src = Icon;
-
-   element.appendChild(myIcon);
-
-    return element;
-  }
-
-  document.body.appendChild(component());
 
 // var scene = new THREE.Scene();
 // var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -64,17 +47,21 @@ function component() {
 // scene.add( line );
 // renderer.render( scene, camera );
 
-var THREE = window.THREE = require('three');
-require('three/examples/js/loaders/GLTFLoader')
 
-var loader = new THREE.GLTFLoader();
+// var THREE = window.THREE = require('three')
+// require('three/examples/js/loaders/GLTFLoader')
 
-loader.load( 'path/to/model.glb', function ( gltf ) {
+// var loader = new THREE.GLTFLoader();
 
-	scene.add( gltf.scene );
 
-}, undefined, function ( error ) {
+// loader.load( 'http://localhost:8000/Mars_1_6792.glb', function ( gltf ) {
 
-	console.error( error );
+// 	scene.add( gltf.scene );
 
-} );
+// }, undefined, function ( error ) {
+
+// 	console.error( error );
+
+// } );
+
+
