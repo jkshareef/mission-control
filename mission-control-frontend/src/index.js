@@ -6,7 +6,10 @@
 
   //celestial bodies
     const URL = "http://localhost:3000/"
-    var mission_id = ""
+
+    let mission_id = ""
+    let destination = {name: "Saturn",object_source:"/images_3D/Saturn_1_120536.glb"}
+
     const BODIES = [{name: "Moon", object_source:"/images_3D/Moon_1_3474.glb"},
     {name: "Mars", object_source: "/images_3D/Mars_1_6792.glb" },
     {name: "Venus", object_source: "/images_3D/Venus_1_12103.glb"}, 
@@ -288,15 +291,8 @@ var MISSION_CREW = [];
     }
       
 
+    
 
-
-
-
-
-
-
-
-    // let destDiv = document.querySelector(".column-left-destination")
     
     // var scene = new THREE.Scene();
     // var camera = new THREE.PerspectiveCamera( 75, destDiv.innerWidth / destDiv.innerHeight, 0.1, 1000 );
