@@ -10,8 +10,8 @@ class CrewsController < ApplicationController
     end
 
     def create
-        @crew = Crew.create(crew_params)
-        render json: @crew
+        crew = Crew.create(crew_params)
+        render json: crew
     end
 
     def destroy
