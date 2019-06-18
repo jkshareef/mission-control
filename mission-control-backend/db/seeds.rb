@@ -7,17 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-destinations = Destination.create([{name: "Moon", distance:, object_source:"/images_3D/Moon_1_3474.glb"}, 
-    {name: "Mars", distance:, object_source: "/images_3D/Mars_1_6792.glb"}, {name: "Venus", distance: object_source: "/images_3D/Venus_1_12103.glb"}, 
-    {name: "Mercury", distance:, object_source:"/images_3D/Mercury_1_4878.glb"}, {name: "Jupiter", , distance:, object_source:"/images_3D/Jupiter_1_142984.glb"}, 
-    {name: "Saturn", distance: object_source:"/images_3D/Saturn_1_120536.glb"}. {name: "Uranus", distance: object_source:"/images_3D/Uranus_1_51118.glb"}, 
-    {name: "Neptune", distance: object_source:"/images_3D/Neptune_1_49528.glb"}, {name: "Pluto", distance: object_source: "/images_3D/Pluto_1_2374.glb"}, 
-    {name: "Titan", distance:, object_source: }])
+
+destinations = Destination.create([{name: "Moon", object_source:"/images_3D/Moon_1_3474.glb"}, 
+    {name: "Mars", object_source: "/images_3D/Mars_1_6792.glb" }, {name: "Venus", object_source: "/images_3D/Venus_1_12103.glb"}, 
+    {name: "Mercury",object_source:"/images_3D/Mercury_1_4878.glb"}, {name: "Jupiter", object_source:"/images_3D/Jupiter_1_142984.glb"}, 
+    {name: "Saturn",object_source:"/images_3D/Saturn_1_120536.glb"}, {name: "Uranus",object_source:"/images_3D/Uranus_1_51118.glb"}, 
+    {name: "Neptune",object_source:"/images_3D/Neptune_1_49528.glb"}, {name: "Pluto",object_source: "/images_3D/Pluto_1_2374.glb"}, 
+    {name: "Titan",object_source: "/images_3D/TitanSurface_1_5150.glb"}])
 
 
 crews = Crew.create([
     {name: "Rhiannon Dade", skill: "Biology", gender: "female", expertise: 99, cost: 48000}, 
-    {name: "Zhenwhei Yang", skill: "Physicist", gener: "female", expertise: 82, cost: 40000},
+    {name: "Zhenwhei Yang", skill: "Physicist", gender: "female", expertise: 82, cost: 40000},
     {name: "Kristof Jenner", skill: "Mechanic", gender: "male", expertise: 79, cost: 32000},
     {name: "Yuri Kochalev", skill: "Navigator", gender: "male", expertise: 92, cost: 58000},
     {name: "Bruce Maximoff", skill: "Gunner", gender: "male", expertise: 86, cost: 30000},
