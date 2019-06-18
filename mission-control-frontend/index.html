@@ -21,14 +21,16 @@
 
     <div class="panels">
     <div class="row">
-        <div class="column left destination" style="background-image: url(https://i.pinimg.com/originals/b2/f1/17/b2f1177cea910d95dca3048224b419d6.gif);background-position: center;">
+        <div class="column left destination" style="background-image: url(./src/images/earth.gif);background-position: center;">
            <h1>Destination</h1>
            <p class="arrow-text-right"> Next Destination: <i class="right-arrow"></i></p>
            <p class="arrow-text-left"><i class="left-arrow"></i>:Previous Destination </p>
            <button class="btn btn-primary btn-bottom" id="select-destination">Select Destination</button>
         </div>
         <div class="column middle" id='middle-panel' style="background-color:#bbb;">
-            <div id="mission-objective"></div>
+            <div id="mission-objective">
+                <button class="btn btn-primary btn-start">Start Mission</button>
+            </div>
         </div>
         <div class="column right miss-crew" style="background-color:#ccc;">
             <button id="add-crew" class="btn btn-primary">Manage Crew</button>
