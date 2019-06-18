@@ -8,18 +8,30 @@
     const URL = "http://localhost:3000/"
 
     let mission_id = ""
-    let destination = {name: "Saturn",object_source:"/images_3D/Saturn_1_120536.glb"}
+    let destination = ""
+    let destinationIndex = 0
+    let bodiesGIF =[{name: "Earth", object_source: "./src/images/earth.gif"},
+    {name: "Moon", distance: 238900, object_source: "./src/images/moon.gif"},
+    {name: "Mars", distance: 33900000, object_source: "./src/images/mars.gif" },
+    {name: "Venus", distance: 162000000, object_source: "./src/images/venus.gif"}, 
+    {name: "Mercury",distance: 48000000, object_source:"./src/images/mercury.gif"},
+    {name: "Jupiter", distance: 365000000, object_source:"./src/images/jupiter.gif"},
+    {name: "Saturn", distance: 746000000, object_source:"./src/images/saturn.gif"},
+    {name: "Uranus", distance: 1600000000, object_source:"./src/images/uranus.gif"},
+    {name: "Neptune", distance: 2700000000, object_source:"./src/images/neptune.gif"},
+    {name: "Pluto", distance: 4670000000, object_source: "./src/images/pluto.gif"},
+    {name: "Titan", distance: 746759220, object_source: "./src/images/titan.gif"}]
 
-    const BODIES = [{name: "Moon", object_source:"/images_3D/Moon_1_3474.glb"},
-    {name: "Mars", object_source: "/images_3D/Mars_1_6792.glb" },
-    {name: "Venus", object_source: "/images_3D/Venus_1_12103.glb"}, 
-    {name: "Mercury",object_source:"/images_3D/Mercury_1_4878.glb"},
-    {name: "Jupiter", object_source:"/images_3D/Jupiter_1_142984.glb"},
-    {name: "Saturn",object_source:"/images_3D/Saturn_1_120536.glb"},
-    {name: "Uranus",object_source:"/images_3D/Uranus_1_51118.glb"},
-    {name: "Neptune",object_source:"/images_3D/Neptune_1_49528.glb"},
-    {name: "Pluto",object_source: "/images_3D/Pluto_1_2374.glb"},
-    {name: "Titan",object_source: "/images_3D/TitanSurface_1_5150.glb"}]
+    const BODIES = [{name: "Moon", distance: 238900, object_source:"/images_3D/Moon_1_3474.glb"},
+    {name: "Mars", distance: 33900000, object_source: "/images_3D/Mars_1_6792.glb" },
+    {name: "Venus", distance: 162000000, object_source: "/images_3D/Venus_1_12103.glb"}, 
+    {name: "Mercury",distance: 48000000, object_source:"/images_3D/Mercury_1_4878.glb"},
+    {name: "Jupiter", distance: 365000000, object_source:"/images_3D/Jupiter_1_142984.glb"},
+    {name: "Saturn",distance: 746000000, object_source:"/images_3D/Saturn_1_120536.glb"},
+    {name: "Uranus",distance: 1600000000, object_source:"/images_3D/Uranus_1_51118.glb"},
+    {name: "Neptune",distance: 2700000000, object_source:"/images_3D/Neptune_1_49528.glb"},
+    {name: "Pluto", distance: 4670000000, object_source: "/images_3D/Pluto_1_2374.glb"},
+    {name: "Titan",distance: 746759220, object_source: "/images_3D/TitanSurface_1_5150.glb"}]
 
   //random characters
 
@@ -164,10 +176,28 @@ var MISSION_CREW = [];
     }
 
     function configDestination() {
-      let nextBtn = document.getElementById('planet-next')
+      let nextBtn = document.getElementById('right-arrow-button')
+      let h1 = document.getElementById('destination-header')
       nextBtn.addEventListener('click', () => {
-          
+          let div = document.getElementById('destination-panel')
+          if (destinationIndex < bodiesGIF.length && destination > -bodiesGIF.length) {
+            destinationIndex++
+            let bodyObj = bodiesGIF[destinationIndex]
+
+            div.style = `background-image: url(${bodyObj.object_source});background-position: center; background-repeat: no-repeat; background-size: 100% 100%;`
+            destination = bodyObj
+            h1.textContent = `Destination: ${bodyObj.name}`
+          } else {
+            destinationIndex++
+            let remainder = destinationIndex % (bodiesGIF.length - 1)
+            let bodyObj = bodiesGIF[remainder]
+
+            div.style =  `background-image: url(${bodyObj.object_source});background-position: center; background-repeat: no-repeat; background-size: 100% 100%;`
+            destination = bodyObj
+            h1.textContent = `Destination: ${bodyObj.name}`
+          }
       })
+
     }
 
 
