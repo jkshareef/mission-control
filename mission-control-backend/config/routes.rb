@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get '/destinations', to: 'destinations#index'
   get '/crews', to: 'crews#index'
   get '/crews/:id', to: 'crews#show'
+  post 'crews', to: 'crews#create'
+  post 'destinations', to 'destinations#create'
   get '/events', to: 'events#index'
   get 'events/:id', to: 'events#show'
   # resources :resources 
