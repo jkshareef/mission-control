@@ -61,6 +61,7 @@ var MISSION_CREW = [];
       configStart();
       configCrew();
       configStats();
+      configDestination();
       startGame();
     }
 
@@ -159,6 +160,13 @@ var MISSION_CREW = [];
       startButton.addEventListener('click', () => {
         startButton.parentNode.parentNode.classList = "hidden"
         postMission()
+      })
+    }
+
+    function configDestination() {
+      let nextBtn = document.getElementById('planet-next')
+      nextBtn.addEventListener('click', () => {
+          
       })
     }
 
