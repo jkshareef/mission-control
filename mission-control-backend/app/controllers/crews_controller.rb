@@ -19,7 +19,7 @@ class CrewsController < ApplicationController
     private
 
     def crew_params
-        params.require(:crew).permit(:name, :skill, :expertise, :gender, :cost, :mission_id)
+        params.require(:crew).permit(:name, :skill, :rating, :gender, :cost, :mission_id)
     end
     
 end
