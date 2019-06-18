@@ -6,8 +6,10 @@
 
   //celestial bodies
     const URL = "http://localhost:3000/"
+
     let mission_id = ""
     let destination = {name: "Saturn",object_source:"/images_3D/Saturn_1_120536.glb"}
+
     const BODIES = [{name: "Moon", object_source:"/images_3D/Moon_1_3474.glb"},
     {name: "Mars", object_source: "/images_3D/Mars_1_6792.glb" },
     {name: "Venus", object_source: "/images_3D/Venus_1_12103.glb"}, 
@@ -35,7 +37,7 @@
     {name: "Arlene McKinney", skill: "Mechanic", gender: "female", rating: 62, cost: 20000},
     {name: "Ken Blevins", skill: "Mechanic", gender: "male", rating: 73, cost: 32000}]
 
-const FUNDING = 10000000;
+var FUNDING = 10000000;
 
   document.addEventListener('DOMContentLoaded', () => {
     main();
@@ -71,6 +73,7 @@ const FUNDING = 10000000;
     function configStats() {
       let disp = document.getElementById('mission-objective')
       let h1 = document.createElement('h1')
+      h1.id = 'funding'
       h1.textContent = "Total Funds: $" + FUNDING
       disp.appendChild(h1)
 
@@ -90,35 +93,60 @@ const FUNDING = 10000000;
       medBtn = document.getElementById('med-btn')
 
       o2Btn.addEventListener('click', () => {
-        FUNDING - 10000
         str = o2Bar.style.width
         currentStat = str.substring(0, str.length - 1);
-        currentStat = parseInt(currentStat) + 25; 
-        o2Bar.style.width = currentStat + "%";
+        currentStat = parseInt(currentStat)
+        if (currentStat < 100) {
+          currentStat = currentStat + 25;
+          o2Bar.style.width = currentStat + "%";
+          FUNDING = FUNDING - 10000
+          h1.textContent = "Total Funds: $" + FUNDING;
+        } else {
+          
+        }
+        
       })
 
       fuelBtn.addEventListener('click', () => {
-        FUNDING - 10000
         str = fuelBar.style.width
         currentStat = str.substring(0, str.length - 1);
-        currentStat = parseInt(currentStat) + 25;
-        fuelBar.style.width = currentStat + "%";
+        currentStat = parseInt(currentStat);
+        if (currentStat < 100) {
+          currentStat = currentStat + 25;
+          fuelBar.style.width = currentStat + "%";
+          FUNDING = FUNDING - 10000
+          h1.textContent = "Total Funds: $" + FUNDING;
+        } else {
+
+        }
       })
 
       foodBtn.addEventListener('click', () => {
-        FUNDING - 10000
         str = foodBar.style.width
         currentStat = str.substring(0, str.length - 1);
-        currentStat = parseInt(currentStat) + 25;
-        foodBar.style.width = currentStat + "%";
+        currentStat = parseInt(currentStat)
+        if (currentStat < 100) {
+          currentStat = currentStat + 25;
+          foodBar.style.width = currentStat + "%";
+          FUNDING = FUNDING - 10000
+          h1.textContent = "Total Funds: $" + FUNDING;
+        } else {
+
+        }
       })
 
       medBtn.addEventListener('click', () => {
-        FUNDING - 10000
         str = medBar.style.width
         currentStat = str.substring(0, str.length - 1);
-        currentStat = parseInt(currentStat) + 25;
-        medBar.style.width = currentStat + "%";
+        currentStat = parseInt(currentStat)
+        if (currentStat < 100) {
+          currentStat = currentStat + 25;
+          medBar.style.width = currentStat + "%";
+          FUNDING = FUNDING - 10000
+          h1.textContent = "Total Funds: $" + FUNDING;
+        } else {
+
+        }
       })
 
     }
@@ -135,6 +163,9 @@ const FUNDING = 10000000;
 
 
     function postCrew(crew) {
+      FUNDING = FUNDING - crew.cost
+      h1 = document.getElementById('funding')
+      h1.textContent = FUNDING;
       console.log("posting")
       let payload = { name: crew.name, skill: crew.skill, rating: crew.rating, cost: crew.cost, gender: crew.gender, mission_id: mission_id }
       let config = {
@@ -145,6 +176,7 @@ const FUNDING = 10000000;
       fetch(URL + 'crews', config)
         .then(resp => resp.json())
         .then(json => {
+          console.log(json)
           addCrew(json)
         })
     }
