@@ -1,10 +1,10 @@
 // import _ from 'lodash';
 // import './style.css';
-// import Icon from './icon.svg';
 // import * as THREE from 'three';
 
-  //planets
-
+  //celestial bodies
+    const URL = "http://localhost:3000/"
+    let mission_id = ""
     const BODIES = [{name: "Moon", object_source:"/images_3D/Moon_1_3474.glb"},
     {name: "Mars", object_source: "/images_3D/Mars_1_6792.glb" },
     {name: "Venus", object_source: "/images_3D/Venus_1_12103.glb"}, 
@@ -34,10 +34,23 @@
 
 
   document.addEventListener('DOMContentLoaded', () =>  {
+
+    function postMission() {
+      config = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'}
+      }
+      fetch(URL + "missions", config)
+      .then(resp => resp.json())
+      .then(json => {
+        mission_id = json.id
+      })
+    }
     let startButton = document.getElementById('start-game')
 
     startButton.addEventListener('click', () => {
       startButton.parentNode.parentNode.classList = "hidden"
+      postMission()
     })
 
     let crewButton = document.getElementById('add-crew')
