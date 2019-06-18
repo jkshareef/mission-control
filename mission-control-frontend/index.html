@@ -27,12 +27,12 @@
            <p class="arrow-text-left"><i class="left-arrow"></i>:Previous Destination </p>
            <button class="btn btn-primary btn-bottom" id="select-destination">Select Destination</button>
         </div>
-        <div class="column middle" style="background-color:#bbb;">
-            <img src="./src/images/spaceship-control-panel-wallpaper-11503007.jpg" alt="">
+        <div class="column middle" id='middle-panel' style="background-color:#bbb;">
+            <div id="mission-objective"></div>
         </div>
-        <div class="column right" style="background-color:#ccc;">
+        <div class="column right miss-crew" style="background-color:#ccc;">
             <button id="add-crew" class="btn btn-primary">Manage Crew</button>
-            <ul id="crew-ul"></ul>
+            <ul id="crew-ul" class="mission-crew"></ul>
         </div>
     </div>
     </div>
@@ -62,36 +62,43 @@
         <div class="wrapper">
             <div class="monitor">
                 <div class="monitor-content">
-                    <p>01238409132903480923849823098409238408209823409823094823094823</p>
+                    <input type="text-field" value="001101001010010100100101001">
                 </div>
             </div>
 
+            <div class="display-left">
+                <div class="display-div">
+                    <img src="./src/images/rocket.png" alt="">
+                </div>
+
+            </div>
+
             <div class="buttons-right">
-                <div id="med-btn" class="top-btn">
-                    <button type="button" class="btn btn-danger">Med</button>
+                <div class="top-btn">
+                    <button id="med-btn" type="button" class="btn btn-danger">Med: $10000</button>
                     <div class="med-bar">
-                        <div class="med-stat"></div>
+                        <div class="med-stat" id="med-stat"></div>
                     </div>
                 </div>
                 <br>
-                <div id="food-btn" class="food-btn"> 
-                    <button type="button" class="btn btn-primary">Food</button>
+                <div  class="food-btn"> 
+                    <button type="button" id="food-btn"class="btn btn-primary">Food: $10000</button>
                     <div class="food-bar">
-                        <div class="food-stat"></div>
+                        <div class="food-stat" id='food-stat'></div>
                     </div>
                 </div>
                 <br>
-                <div id="o2-btn" class="o2-btn">
-                    <button type="button" class="btn btn-info">O₂</button>
+                <div  class="o2-btn">
+                    <button type="button" id="o2-btn"class="btn btn-info">O₂: $10000</button>
                     <div class="o2-bar">
-                        <div class="o2-stat"></div>
+                        <div class="o2-stat" id='o2-stat'></div>
                     </div>
                 </div>
                 <br>
-                <div id="fuel-btn" class="fuel-btn">
-                    <button type="button" class="btn btn-warning">Fuel</button>
+                <div  class="fuel-btn">
+                    <button id="fuel-btn" type="button" class="btn btn-warning">Fuel: $10000</button>
                     <div class="fuel-bar">
-                        <div class="fuel-stat"></div>
+                        <div class="fuel-stat" id='fuel-stat'></div>
                     </div>
                 </div>
 
