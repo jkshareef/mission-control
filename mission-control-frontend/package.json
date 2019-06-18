@@ -4,6 +4,7 @@
   "description": "",
   "private": true,
   "dependencies": {
+    "imports-loader": "^0.8.0",
     "lodash": "^4.17.11",
     "three": "^0.105.2"
   },
