@@ -48,6 +48,7 @@
       let closeButton = document.createElement('button')
       closeButton.textContent = "X"
       closeButton.style= "float:right;"
+      closeButton.classList = " btn-danger"
       
       closeButton.addEventListener('click', () => {
         closeButton.parentNode.parentNode.classList = 'hidden'
@@ -59,28 +60,37 @@
 
       let ul = document.createElement('ul')
       ul.id = "crew-options"
+      ul.classList = "crew-ul"
 
       let li = document.createElement('li')
 
       li.classList = "crew-list"
 
+      let liDiv = document.createElement('div')
+      liDiv.classList = "crew-members"
+
       let h3 = document.createElement('h3')
-      h3.textContent = "Name: " + bob.name
+      h3.textContent = "Name: " + rhiannon.name
 
       let p = document.createElement('p') 
-      p.textContent = "Skills: " + bob.skills
+      p.textContent = "Skills: " + rhiannon.skill
+
+      let br = document.createElement('br')
 
       addCrewMemberBtn = document.createElement('button') 
       addCrewMemberBtn.textContent = "Add Crew Member"
       addCrewMemberBtn.classList = "add-crew btn btn-primary"
+      addCrewMemberBtn.style = "margin-right: 10px"
 
       addCrewMemberBtn.addEventListener('click', () => {
         
       })
 
-      li.appendChild(h3)
-      li.appendChild(addCrewMemberBtn)
-      li.appendChild(p)
+      liDiv.appendChild(h3)
+      liDiv.appendChild(addCrewMemberBtn)
+      liDiv.appendChild(p)
+
+      li.appendChild(liDiv)
 
 
       ul.appendChild(li)
