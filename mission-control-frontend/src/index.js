@@ -1,6 +1,10 @@
 // import _ from 'lodash';
-// import './style.css';
+// import './src/style.css';
 // import * as THREE from 'three';
+// require("imports-loader?THREE!./index.js");
+// require('three/examples/js/loaders/GLTFLoader');
+
+
 
   //celestial bodies
     const URL = "http://localhost:3000/"
@@ -18,25 +22,25 @@
 
   //random characters
 
-    const CREW = [{name: "Rhiannon Dade", skill: "Biology", gender: "female", expertise: 99, cost: 48000},
-    {name: "Zhenwhei Yang", skill: "Physicist", gender: "female", expertise: 82, cost: 40000},
-    {name: "Kristof Jenner", skill: "Mechanic", gender: "male", expertise: 79, cost: 32000},
-    {name: "Yuri Kochalev", skill: "Navigator", gender: "male", expertise: 92, cost: 58000},
-    {name: "Bruce Maximoff", skill: "Gunner", gender: "male", expertise: 86, cost: 30000},
-    {name: "Terry Achebe", skill: "Engineer", gender: "male", expertise: 87, cost: 65000},
-    {name: "Lucy Berry", skill: "Chemist", gender: "female", expertise: 90, cost: 46000},
-    {name: "Prakash Manvi", skill: "Mechanic", gender: "male", expertise: 79, cost: 32000},
-    {name: "Loretta Campbell", skill: "Leader", gender: "female", expertise: 83, cost: 50000},
-    {name: "Abraham Ducet", skill: "Driller", gender: "male", expertise: 79, cost: 32000},
-    {name: "Haley Norris", skill: "Medic", gender: "female", expertise: 88, cost: 60000},
-    {name: "Arlene McKinney", skill: "Mechanic", gender: "female", expertise: 62, cost: 20000},
-    {name: "Ken Blevins", skill: "Mechanic", gender: "male", expertise: 73, cost: 32000}]
+    const CREW = [{name: "Rhiannon Dade", skill: "Biology", gender: "female", rating: 99, cost: 48000},
+    {name: "Zhenwhei Yang", skill: "Physicist", gender: "female", rating: 82, cost: 40000},
+    {name: "Kristof Jenner", skill: "Mechanic", gender: "male", rating: 79, cost: 32000},
+    {name: "Yuri Kochalev", skill: "Navigator", gender: "male", rating: 92, cost: 58000},
+    {name: "Bruce Maximoff", skill: "Gunner", gender: "male", rating: 86, cost: 30000},
+    {name: "Terry Achebe", skill: "Engineer", gender: "male", rating: 87, cost: 65000},
+    {name: "Lucy Berry", skill: "Chemist", gender: "female", rating: 90, cost: 46000},
+    {name: "Prakash Manvi", skill: "Mechanic", gender: "male", rating: 79, cost: 32000},
+    {name: "Loretta Campbell", skill: "Leader", gender: "female", rating: 83, cost: 50000},
+    {name: "Abraham Ducet", skill: "Driller", gender: "male", rating: 79, cost: 32000},
+    {name: "Haley Norris", skill: "Medic", gender: "female", rating: 88, cost: 60000},
+    {name: "Arlene McKinney", skill: "Mechanic", gender: "female", rating: 62, cost: 20000},
+    {name: "Ken Blevins", skill: "Mechanic", gender: "male", rating: 73, cost: 32000}]
 
 
   document.addEventListener('DOMContentLoaded', () =>  {
 
     function postMission() {
-      config = {
+      let config = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'}
       }
@@ -44,6 +48,20 @@
       .then(resp => resp.json())
       .then(json => {
         mission_id = json.id
+      })
+    }
+
+    function postCrew(name, skill, rating, cost, gender, mission_id) {
+      let payload = {name: name, skill: skill, rating: rating, cost: cost, gender: gender, mission_id: mission_id}
+      let config = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      }
+      fetch(URL+'crews', config)
+      .then(resp => resp.json())
+      .then(json => {
+
       })
     }
     let startButton = document.getElementById('start-game')
@@ -90,43 +108,26 @@
 
         addCrewMemberBtn = document.createElement('button') 
         addCrewMemberBtn.textContent = "Add Crew Member"
+        addCrewMemberBtn.classList = "add-crew btn btn-primary"
+        addCrewMemberBtn.style = "margin-right: 10px"
 
-      let liDiv = document.createElement('div')
-      liDiv.classList = "crew-members"
+        let liDiv = document.createElement('div')
+        liDiv.classList = "crew-members"
 
-      let h3 = document.createElement('h3')
-      h3.textContent = "Name: " + rhiannon.name
+        let br = document.createElement('br')
 
-      let p = document.createElement('p') 
-      p.textContent = "Skills: " + rhiannon.skill
-
-      let br = document.createElement('br')
-
-      addCrewMemberBtn = document.createElement('button') 
-      addCrewMemberBtn.textContent = "Add Crew Member"
-      addCrewMemberBtn.classList = "add-crew btn btn-primary"
-      addCrewMemberBtn.style = "margin-right: 10px"
-
-
-      addCrewMemberBtn.addEventListener('click', () => {
-        
-      })
-        li.appendChild(h3)
-        li.appendChild(p)
-  
-        ul.appendChild(li)
-      })
-      
-
-
+        addCrewMemberBtn.addEventListener('click', () => {
+          
+          postCrew(crew.name, crew.skill, crew.rating, crew.cost, crew.gender, mission_id)
+        })
   
 
-      liDiv.appendChild(h3)
-      liDiv.appendChild(addCrewMemberBtn)
-      liDiv.appendChild(p)
+        liDiv.appendChild(h3)
+        liDiv.appendChild(addCrewMemberBtn)
+        liDiv.appendChild(p)
 
-      li.appendChild(liDiv)
-
+        li.appendChild(liDiv)
+      })
 
       ul.appendChild(li)
 
@@ -140,6 +141,27 @@
 
     })
 
+    // let destDiv = document.querySelector(".column-left-destination")
+    
+    // var scene = new THREE.Scene();
+    // var camera = new THREE.PerspectiveCamera( 75, destDiv.innerWidth / destDiv.innerHeight, 0.1, 1000 );
+    // var loader = new THREE.GLTFLoader();
+    // loader.load( '../images_3D/Saturn_1_120536', function ( gltf ) {
+
+    //   scene.add( gltf.scene );
+
+    // }, undefined, function ( error ) {
+
+    //   console.error( error );
+
+    // } );
+
+    // var renderer = new THREE.WebGLRenderer();
+    // renderer.setSize( destDiv.innerWidth, destDiv.innerHeight );
+    // document.body.appendChild( renderer.domElement );
+   
+
+    
     
   })
 
