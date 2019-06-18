@@ -8,4 +8,18 @@ class CrewsController < ApplicationController
         crew = Crew.find(params[:id])
         render json: crew
     end
+
+    def create
+        @crew = Crew.create(crew_params)
+        render json: @crew
+    end
+
+
+
+    private
+
+    def crew_params
+        params.require(:crew).permit(:name, :skill, :expertise, :gender, :cost, :mission_id)
+    end
+    
 end

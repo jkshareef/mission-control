@@ -9,4 +9,15 @@ class DestinationsController < ApplicationController
         destination = Destination.find(params[:id])
         render json: destination
     end
+
+    def create
+        destination = Destination.create(name: params[:name], object_source: params[:object_source], id: params[:mission_id])
+        render json: destination
+    end
+
+
+
+
+
+    
 end
