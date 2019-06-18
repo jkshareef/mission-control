@@ -324,14 +324,14 @@ img {
   height: 800px;
   background: #1a1a1a;
   opacity: 0.9;
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   margin: auto;
   padding: 5px 0 0;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 

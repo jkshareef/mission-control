@@ -75,52 +75,47 @@
         let p = document.createElement('p') 
         p.textContent = "Skills: " + crew.skill
 
-        addCrewMemberBtn = document.createElement('button') 
+        addCrewMemberBtn = document.createElement('button')
+        addCrewMemberBtn = document.createElement('button')
         addCrewMemberBtn.textContent = "Add Crew Member"
+        addCrewMemberBtn.classList = "add-crew btn btn-primary"
+        addCrewMemberBtn.style = "margin-right: 10px" 
 
       let liDiv = document.createElement('div')
       liDiv.classList = "crew-members"
 
-      let h3 = document.createElement('h3')
-      h3.textContent = "Name: " + rhiannon.name
+        liDiv.appendChild(h3)
+        liDiv.appendChild(addCrewMemberBtn)
+        liDiv.appendChild(p)
 
-      let p = document.createElement('p') 
-      p.textContent = "Skills: " + rhiannon.skill
+        li.appendChild(liDiv)
 
-      let br = document.createElement('br')
 
-      addCrewMemberBtn = document.createElement('button') 
-      addCrewMemberBtn.textContent = "Add Crew Member"
-      addCrewMemberBtn.classList = "add-crew btn btn-primary"
-      addCrewMemberBtn.style = "margin-right: 10px"
+        ul.appendChild(li)
+
+        div.appendChild(closeButton)
+        div.appendChild(ul)
+        container.appendChild(div)
+        document.body.appendChild(container)
+
+
+   
 
 
       addCrewMemberBtn.addEventListener('click', () => {
         
       })
-        li.appendChild(h3)
-        li.appendChild(p)
+        // li.appendChild(h3)
+        // li.appendChild(p)
   
-        ul.appendChild(li)
+        // ul.appendChild(li)
       })
       
 
 
   
 
-      liDiv.appendChild(h3)
-      liDiv.appendChild(addCrewMemberBtn)
-      liDiv.appendChild(p)
-
-      li.appendChild(liDiv)
-
-
-      ul.appendChild(li)
-
-      div.appendChild(closeButton)
-      div.appendChild(ul)
-      container.appendChild(div)
-      document.body.appendChild(container)
+    
 
 
 
