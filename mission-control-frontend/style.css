@@ -103,7 +103,10 @@ grid-row-gap: 13px;
 
 .btn-bottom {
   position: relative;
-  top: 100px;
+  top: 50%;
+  right: 40%;
+  transform: translateY(500%);
+  
 }
 
 .btn-start {
