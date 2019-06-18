@@ -337,3 +337,7 @@ img {
 .crew-list{
 	color: white;
 }
+
+.add-crew {
+	float: right;
+}
