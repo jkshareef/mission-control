@@ -14,6 +14,11 @@ class CrewsController < ApplicationController
         render json: @crew
     end
 
+    def destroy
+        @crew = Crew.find(params[:id])
+        @crew.destroy
+    end
+
 
 
     private

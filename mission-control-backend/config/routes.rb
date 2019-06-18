@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/crews/:id', to: 'crews#show'
   post '/crews', to: 'crews#create'
   post '/destinations', to: 'destinations#create'
+  delete 'crews/:id', to: 'crews#destroy'
   get '/events', to: 'events#index'
   get 'events/:id', to: 'events#show'
   post '/missions', to: 'missions#create'
