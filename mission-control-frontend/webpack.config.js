@@ -1,26 +1,9 @@
 const path = require('path');
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  module: {
-        rules: [
-        {
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                'css-loader'
-            ]
-        },
-        {
-            test: /\.(png|svg|jpg|gif)$/,
-            use: [
-                'file-loader'
-            ]
-        }
-        ]
-    }
-};
+// module.exports = {
+//   watch: true,
+//   watchOptions: {
+//     aggregateTimeout: 300,
+//     ignored: /node_modules/,
+//     poll: 1000 // Check for changes every second
+//   }
