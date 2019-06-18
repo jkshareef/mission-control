@@ -4,8 +4,6 @@
 // require("imports-loader?THREE!./index.js");
 // require('three/examples/js/loaders/GLTFLoader');
 
-
-
   //celestial bodies
     const URL = "http://localhost:3000/"
     let mission_id = ""
@@ -36,110 +34,196 @@
     {name: "Arlene McKinney", skill: "Mechanic", gender: "female", rating: 62, cost: 20000},
     {name: "Ken Blevins", skill: "Mechanic", gender: "male", rating: 73, cost: 32000}]
 
+const FUNDING = 10000000;
 
-  document.addEventListener('DOMContentLoaded', () =>  {
-
+  document.addEventListener('DOMContentLoaded', () => {
+    main();
+    
+  })
+  
     function postMission() {
       let config = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
       }
       fetch(URL + "missions", config)
-      .then(resp => resp.json())
-      .then(json => {
-        mission_id = json.id
+        .then(resp => resp.json())
+        .then(json => {
+          mission_id = json.id
+        })
+    }
+
+    function main() {
+      configStart();
+      configCrew();
+      configStats();
+    }
+
+    function configCrew() {
+      let crewButton = document.getElementById('add-crew')
+
+      crewButton.addEventListener('click', () => {
+        crewOptions();
       })
     }
 
-    function postCrew(name, skill, rating, cost, gender, mission_id) {
-      let payload = {name: name, skill: skill, rating: rating, cost: cost, gender: gender, mission_id: mission_id}
+    function configStats() {
+      let disp = document.getElementById('mission-objective')
+      let h1 = document.createElement('h1')
+      h1.textContent = "Total Funds: $" + FUNDING
+      disp.appendChild(h1)
+
+      let medBar = document.getElementById('med-stat')
+      let foodBar = document.getElementById('food-stat')
+      let o2Bar = document.getElementById('o2-stat')
+      let fuelBar = document.getElementById('fuel-stat')
+
+      medBar.style = "width: 0%"
+      foodBar.style = "width: 0%"
+      o2Bar.style = "width: 0%"
+      fuelBar.style = "width: 0%"
+
+      o2Btn = document.getElementById('o2-btn')
+      foodBtn = document.getElementById('food-btn')
+      fuelBtn = document.getElementById('fuel-btn')
+      medBtn = document.getElementById('med-btn')
+
+      o2Btn.addEventListener('click', () => {
+        FUNDING - 10000
+        str = o2Bar.style.width
+        currentStat = str.substring(0, str.length - 1);
+        currentStat = parseInt(currentStat) + 25; 
+        o2Bar.style.width = currentStat + "%";
+      })
+
+      fuelBtn.addEventListener('click', () => {
+        FUNDING - 10000
+        str = fuelBar.style.width
+        currentStat = str.substring(0, str.length - 1);
+        currentStat = parseInt(currentStat) + 25;
+        fuelBar.style.width = currentStat + "%";
+      })
+
+      foodBtn.addEventListener('click', () => {
+        FUNDING - 10000
+        str = foodBar.style.width
+        currentStat = str.substring(0, str.length - 1);
+        currentStat = parseInt(currentStat) + 25;
+        foodBar.style.width = currentStat + "%";
+      })
+
+      medBtn.addEventListener('click', () => {
+        FUNDING - 10000
+        str = medBar.style.width
+        currentStat = str.substring(0, str.length - 1);
+        currentStat = parseInt(currentStat) + 25;
+        medBar.style.width = currentStat + "%";
+      })
+
+    }
+
+
+    function configStart() {
+      let startButton = document.getElementById('start-game')
+      startButton.addEventListener('click', () => {
+        startButton.parentNode.parentNode.classList = "hidden"
+        postMission()
+      })
+    }
+
+
+
+    function postCrew(crew) {
+      console.log("posting")
+      let payload = { name: crew.name, skill: crew.skill, rating: crew.rating, cost: crew.cost, gender: crew.ender, mission_id: mission_id }
       let config = {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }
-      fetch(URL+'crews', config)
-      .then(resp => resp.json())
-      .then(json => {
-
-      })
+      fetch(URL + 'crews', config)
+        .then(resp => resp.json())
+        .then(json => {
+          addCrew(json)
+        })
     }
-    let startButton = document.getElementById('start-game')
 
-    startButton.addEventListener('click', () => {
-      startButton.parentNode.parentNode.classList = "hidden"
-      postMission()
-    })
+    function addCrew(crew) {
+      let ul = document.getElementById('crew-ul')
+      let li = document.createElement('li')
+      let liDiv = document.createElement('div')
+      let h4 = document.createElement('h4')
+      let p = document.createElement('p')
+      p.textContent = crew.skill
+      h4.textContent = crew.name
+      liDiv.appendChild(h4)
+      liDiv.appendChild(p)
+      li.appendChild(liDiv)
+      ul.appendChild(li)
 
-    let crewButton = document.getElementById('add-crew')
-    crewButton.addEventListener('click', () => {
+    }
+
+    function crewOptions() {
+
       let container = document.createElement('div')
       container.id = "container-popup"
 
       let closeButton = document.createElement('button')
       closeButton.textContent = "X"
-      closeButton.style= "float:right;"
+      closeButton.style = "float:right;"
       closeButton.classList = " btn-danger"
-      
       closeButton.addEventListener('click', () => {
         closeButton.parentNode.parentNode.classList = 'hidden'
       })
-     
+
 
       let div = document.createElement('div')
-      div.classList = "crew-popup"
-
       let ul = document.createElement('ul')
+      let li = document.createElement('li')
+      
+      div.classList = "crew-popup"
       ul.id = "crew-options"
       ul.classList = "crew-ul"
-
-      let li = document.createElement('li')
-
       li.classList = "crew-list"
 
 
       CREW.forEach((crew) => {
-
         let h3 = document.createElement('h3')
+        let p = document.createElement('p')
+        let liDiv = document.createElement('div')
+        
+        liDiv.classList = "crew-members"
         h3.textContent = "Name: " + crew.name
+        p.textContent = "Skills: " + crew.skill + " Cost: $" + crew.cost
 
-        let p = document.createElement('p') 
-        p.textContent = "Skills: " + crew.skill
-
-        addCrewMemberBtn = document.createElement('button') 
+        addCrewMemberBtn = document.createElement('button')
         addCrewMemberBtn.textContent = "Add Crew Member"
         addCrewMemberBtn.classList = "add-crew btn btn-primary"
-        addCrewMemberBtn.style = "margin-right: 10px"
-
-        let liDiv = document.createElement('div')
-        liDiv.classList = "crew-members"
-
-        let br = document.createElement('br')
 
         addCrewMemberBtn.addEventListener('click', () => {
-          
-          postCrew(crew.name, crew.skill, crew.rating, crew.cost, crew.gender, mission_id)
+          postCrew(crew)
         })
-  
-
+        
         liDiv.appendChild(h3)
         liDiv.appendChild(addCrewMemberBtn)
         liDiv.appendChild(p)
-
         li.appendChild(liDiv)
       })
-
       ul.appendChild(li)
-
       div.appendChild(closeButton)
       div.appendChild(ul)
       container.appendChild(div)
       document.body.appendChild(container)
+    }
+      
 
 
 
 
-    })
+
+
+
+
 
     // let destDiv = document.querySelector(".column-left-destination")
     
@@ -163,7 +247,7 @@
 
     
     
-  })
+
 
 
 
