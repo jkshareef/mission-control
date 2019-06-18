@@ -334,10 +334,31 @@ img {
   overflow: hidden;
 }
 
-.crew-list{
-	color: white;
-}
+
 
 .add-crew {
 	float: right;
+}
+
+.crew-members {
+	color: white;
+	border-style: solid;
+	border-color: lightblue;
+	height: 100px;
+	border-radius:10px;
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+width: 350px;
+background-color: gray;
+}
+
+.crew-list {
+	margin-top: 30px;
+	margin-right: 30px;
+	
+}
+
+.crew-ul {
+	list-style: none;
+	
 }
