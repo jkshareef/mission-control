@@ -155,7 +155,7 @@ var MISSION_CREW = [];
 
 
     function configStart() {
-      let startButton = document.getElementById('start-game')
+      let startButton = document.getElementById('page-start')
       startButton.addEventListener('click', () => {
         startButton.parentNode.parentNode.classList = "hidden"
         postMission()
@@ -265,17 +265,14 @@ var MISSION_CREW = [];
       btn = document.getElementById('start-game')
       btn.addEventListener('click', () => {
         crewBtn = document.getElementById('add-crew')
-        crewBtn.ClassList = 'hidden'
+        crewBtn.remove();
+        crewDeleteButtons = document.querySelectorAll('#crew-delete')
+        crewDeleteButtons.forEach(btn => {
+          console.log(btn)
+          btn.remove();
+        })
       })
-
-      crewDeleteButtons = document.querySelectorAll('crew-delete')
-      crewDeleteButtons.forEach(btn => {
-        btn.remove();
-      })
-
-
       startEvents()
-      
     }
 
 
