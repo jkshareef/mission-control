@@ -37,7 +37,7 @@
     {name: "Arlene McKinney", skill: "Mechanic", gender: "female", rating: 62, cost: 20000},
     {name: "Ken Blevins", skill: "Mechanic", gender: "male", rating: 73, cost: 32000}]
 
-var FUNDING = 10000000;
+var FUNDING = 1000000;
 var MISSION_CREW = [];
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -99,7 +99,7 @@ var MISSION_CREW = [];
         currentStat = str.substring(0, str.length - 1);
         currentStat = parseInt(currentStat)
         if (currentStat < 100) {
-          currentStat = currentStat + 25;
+          currentStat = currentStat + 10;
           o2Bar.style.width = currentStat + "%";
           FUNDING = FUNDING - 10000
           h1.textContent = "Total Funds: $" + FUNDING;
@@ -114,7 +114,7 @@ var MISSION_CREW = [];
         currentStat = str.substring(0, str.length - 1);
         currentStat = parseInt(currentStat);
         if (currentStat < 100) {
-          currentStat = currentStat + 25;
+          currentStat = currentStat + 10;
           fuelBar.style.width = currentStat + "%";
           FUNDING = FUNDING - 10000
           h1.textContent = "Total Funds: $" + FUNDING;
@@ -128,7 +128,7 @@ var MISSION_CREW = [];
         currentStat = str.substring(0, str.length - 1);
         currentStat = parseInt(currentStat)
         if (currentStat < 100) {
-          currentStat = currentStat + 25;
+          currentStat = currentStat + 10;
           foodBar.style.width = currentStat + "%";
           FUNDING = FUNDING - 10000
           h1.textContent = "Total Funds: $" + FUNDING;
@@ -142,7 +142,7 @@ var MISSION_CREW = [];
         currentStat = str.substring(0, str.length - 1);
         currentStat = parseInt(currentStat)
         if (currentStat < 100) {
-          currentStat = currentStat + 25;
+          currentStat = currentStat + 10;
           medBar.style.width = currentStat + "%";
           FUNDING = FUNDING - 10000
           h1.textContent = "Total Funds: $" + FUNDING;
@@ -264,15 +264,22 @@ var MISSION_CREW = [];
     function startGame() {
       btn = document.getElementById('start-game')
       btn.addEventListener('click', () => {
+          
+        resourceDepleting()
+
         crewBtn = document.getElementById('add-crew')
         crewBtn.remove();
         crewDeleteButtons = document.querySelectorAll('#crew-delete')
         crewDeleteButtons.forEach(btn => {
           console.log(btn)
           btn.remove();
+
+          
+          startEvents();
         })
       })
-      startEvents()
+      
+      
     }
 
 
@@ -287,8 +294,45 @@ var MISSION_CREW = [];
       })
     }
       
+    // function resourceDeplete() {
+    //       for(let i = 0; i < 100; i++){
+    //         resourceDepleting();
+            
+    //       }
+          
+    // }
 
-    
+    function resourceDepleting(){
+      let medBar = document.getElementById('med-stat')
+      let foodBar = document.getElementById('food-stat')
+      let o2Bar = document.getElementById('o2-stat')
+      let fuelBar = document.getElementById('fuel-stat')
+
+      setInterval(function () {
+      medStat = medBar.style.width
+      currentMedStat = medStat.substring(0, medStat.length - 1);
+      currentMedStat = currentMedStat - 5;
+      medBar.style.width = currentMedStat + "%";
+
+
+      foodStat = foodBar.style.width
+      currentFoodStat = foodStat.substring(0, foodStat.length - 1);
+      currentFoodStat = currentFoodStat - 5;
+      foodBar.style.width = currentFoodStat + "%";
+
+      o2Stat = o2Bar.style.width
+      currentO2Stat = o2Stat.substring(0, o2Stat.length - 1);
+      currentO2Stat = currentO2Stat - 5;
+      o2Bar.style.width = currentO2Stat + "%";
+
+      fuelStat = fuelBar.style.width
+      currentFuelStat = fuelStat.substring(0, fuelStat.length - 1);
+      currentFuelStat = currentFuelStat - 5;
+      fuelBar.style.width = currentFuelStat + "%";
+
+      }, 2000)
+
+    }
 
     
     // var scene = new THREE.Scene();

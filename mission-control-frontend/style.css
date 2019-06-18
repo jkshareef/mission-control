@@ -432,3 +432,45 @@ i {
 background-color: gray;
 
 }
+
+.spaceship-gifs {
+  max-height: 50px;
+}
+
+
+.spaceship-gifs img{
+  margin-top: 10px;
+  max-height: 175px;
+  margin-left: 20px;
+  float:left;
+  box-shadow: 10px 10px 29px -15px rgba(0,0,0,0.75);
+  	border-radius:10px;
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+}
+
+.gravitron-gifs img {
+  max-height: 150px;
+  margin-right: 50px;
+  margin-top: 20px;
+  margin-left: 70px;
+  box-shadow: 10px 10px 29px -15px rgba(0,0,0,0.75);
+  	border-radius:10px;
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+}
+
+.keyboard {
+  background-image: url("src/images/keyboard.png");
+  /* background-size: 150px; */
+  background-position: center;
+  width: 100%;
+  height: 300px;
+  
+}
+
+.keyboard img {
+  margin-left: 670px;
+  margin-top: 75px;
+  width: 625px;
+}
