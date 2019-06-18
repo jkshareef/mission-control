@@ -21,10 +21,10 @@
 
     <div class="panels">
     <div class="row">
-        <div class="column left destination" style="background-image: url(./src/images/earth.gif);background-position: center;">
+        <div id class="column left destination" style="background-image: url(./src/images/earth.gif);background-position: center;">
            <h1>Destination</h1>
-           <p class="arrow-text-right"> Next Destination: <i class="right-arrow"></i></p>
-           <p class="arrow-text-left"><i class="left-arrow"></i>:Previous Destination </p>
+           <p class="arrow-text-right"> Next Destination: <i id="planet-next" class="right-arrow"></i></p>
+           <p class="arrow-text-left"><i id="planet-previous" class="left-arrow"></i>:Previous Destination </p>
            <button class="btn btn-primary btn-bottom" id="select-destination">Select Destination</button>
         </div>
         <div class="column middle" id='middle-panel' style="background-color:#bbb;">
