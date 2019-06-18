@@ -47,13 +47,16 @@
 
       addCrewMemberBtn = document.createElement('button') 
       addCrewMemberBtn.textContent = "Add Crew Member"
+      addCrewMemberBtn.classList = "add-crew btn btn-primary"
 
       addCrewMemberBtn.addEventListener('click', () => {
         
       })
 
       li.appendChild(h3)
+      li.appendChild(addCrewMemberBtn)
       li.appendChild(p)
+
 
       ul.appendChild(li)
       div.appendChild(closeButton)
