@@ -35,6 +35,7 @@
     {name: "Ken Blevins", skill: "Mechanic", gender: "male", rating: 73, cost: 32000}]
 
 var FUNDING = 10000000;
+var MISSION_CREW = [];
 
   document.addEventListener('DOMContentLoaded', () => {
     main();
@@ -57,6 +58,7 @@ var FUNDING = 10000000;
       configStart();
       configCrew();
       configStats();
+      startGame();
     }
 
     function configCrew() {
@@ -184,12 +186,22 @@ var FUNDING = 10000000;
       let liDiv = document.createElement('div')
       let h4 = document.createElement('h4')
       let p = document.createElement('p')
+      let deleteButton = document.createElement('button')
+      li.classList = "crew-li"
+      deleteButton.textContent = "x"
+      deleteButton.id = 'crew-delete'
+      deleteButton.style = "max-width:20px;float:right;"
+      deleteButton.addEventListener('click', () => {
+        handleCrewDelete(crew, li)
+      })
       p.textContent = crew.skill
       h4.textContent = crew.name
       liDiv.appendChild(h4)
+      liDiv.appendChild(deleteButton)
       liDiv.appendChild(p)
       li.appendChild(liDiv)
       ul.appendChild(li)
+      
 
     }
 
@@ -244,6 +256,35 @@ var FUNDING = 10000000;
       div.appendChild(ul)
       container.appendChild(div)
       document.body.appendChild(container)
+    }
+
+    function startGame() {
+      btn = document.getElementById('start-game')
+      btn.addEventListener('click', () => {
+        crewBtn = document.getElementById('add-crew')
+        crewBtn.ClassList = 'hidden'
+      })
+
+      crewDeleteButtons = document.querySelectorAll('crew-delete')
+      crewDeleteButtons.forEach(btn => {
+        btn.remove();
+      })
+
+
+      startEvents()
+      
+    }
+
+
+    function startEvents() {
+      
+    }
+
+    function handleCrewDelete(crew, li) {
+      li.remove();
+      fetch(URL + "crews/" + crew.id, {
+        method: 'DELETE'
+      })
     }
       
 

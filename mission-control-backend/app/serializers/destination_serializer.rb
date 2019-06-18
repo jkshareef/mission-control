@@ -1,4 +1,4 @@
 class DestinationSerializer < ActiveModel::Serializer
   attributes :id, :name, :location, :distance
-  has_one :mission
+  # has_one :mission
 end
