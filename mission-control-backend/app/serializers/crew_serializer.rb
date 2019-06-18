@@ -1,4 +1,4 @@
 class CrewSerializer < ActiveModel::Serializer
-  attributes :id, :name, :skill, :cost
-  has_one :mission
+  attributes :id, :name, :skill, :cost, :rating
+  # # belongs_to :mission
 end

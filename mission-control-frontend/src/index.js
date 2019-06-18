@@ -7,6 +7,7 @@
   //celestial bodies
     const URL = "http://localhost:3000/"
     let mission_id = ""
+    let destination = {name: "Saturn",object_source:"/images_3D/Saturn_1_120536.glb"}
     const BODIES = [{name: "Moon", object_source:"/images_3D/Moon_1_3474.glb"},
     {name: "Mars", object_source: "/images_3D/Mars_1_6792.glb" },
     {name: "Venus", object_source: "/images_3D/Venus_1_12103.glb"}, 
@@ -135,7 +136,7 @@ const FUNDING = 10000000;
 
     function postCrew(crew) {
       console.log("posting")
-      let payload = { name: crew.name, skill: crew.skill, rating: crew.rating, cost: crew.cost, gender: crew.ender, mission_id: mission_id }
+      let payload = { name: crew.name, skill: crew.skill, rating: crew.rating, cost: crew.cost, gender: crew.gender, mission_id: mission_id }
       let config = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -217,15 +218,8 @@ const FUNDING = 10000000;
     }
       
 
+    
 
-
-
-
-
-
-
-
-    // let destDiv = document.querySelector(".column-left-destination")
     
     // var scene = new THREE.Scene();
     // var camera = new THREE.PerspectiveCamera( 75, destDiv.innerWidth / destDiv.innerHeight, 0.1, 1000 );
