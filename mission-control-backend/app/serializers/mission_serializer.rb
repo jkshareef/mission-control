@@ -13,7 +13,8 @@ class MissionSerializer < ActiveModel::Serializer
           only: [:name, :location, :distance, :object_source]
         },
         events: {
-          only: [:content, :resource_cost, :target_resource, :acceleration]
+          only: [:content, :resource_cost, :target_resource, :acceleration, 
+            :skill, :threshold]
         },
         resources: {
           only: [:food, :oxygen, :fuel, :medicine]
