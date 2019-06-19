@@ -1,7 +1,6 @@
 class Mission < ApplicationRecord
     has_many :destinations
     has_many :crews 
-    has_many :events
     has_many :resources
 
 
