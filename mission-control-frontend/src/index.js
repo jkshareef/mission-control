@@ -78,11 +78,14 @@ var MISSION_CREW = [];
         })
     }
 
-    function fetchMission() {
+    function fetchCrew(li) {
       fetch(URL + `missions/${mission_id}`)
       .then(resp => resp.json())
       .then(json => {
-        return json
+        let mission = json
+        mission.crews.forEach((crew) => {
+          buildCrew(crew, li)
+        })
       })
     }
     
@@ -264,8 +267,8 @@ var MISSION_CREW = [];
 
       let closeButton = document.createElement('button')
       closeButton.textContent = "X"
-      closeButton.style = "float:right;"
-      closeButton.classList = " btn-danger"
+      closeButton.style = "float:left;"
+      closeButton.classList = "btn-danger"
       closeButton.addEventListener('click', () => {
         closeButton.parentNode.parentNode.classList = "hidden"
         closeButton.parentNode.parentNode.innerHTML = ""
@@ -287,65 +290,81 @@ var MISSION_CREW = [];
       container.appendChild(div)
       document.body.appendChild(container)
 
-      // build Crew Helper Function
-      function buildCrew(crew, value, event=null) {
-        let h3 = document.createElement('h3')
-        let p = document.createElement('p')
-        let liDiv = document.createElement('div')
-        
-        liDiv.classList = "crew-members"
-        h3.textContent = "Name: " + crew.name
-        if (!missionStart) {
-          p.textContent = "Skills: " + crew.skill + " Cost: $" + crew.cost
-          addCrewMemberBtn = document.createElement('button')
-          addCrewMemberBtn.textContent = "Add Crew Member"
-          addCrewMemberBtn.classList = "add-crew btn btn-primary"
-
-          addCrewMemberBtn.addEventListener('click', () => {
-            postCrew(crew)
-          })
-          liDiv.appendChild(addCrewMemberBtn)
-        } else {
-          p.textContent = "Skills: " + crew.skill
-          selectCrewBtn = document.createElement('button')
-          selectCrewBtn.textContent = "Assign Member"
-          selectCrewBtn.classList = "add-crew btn btn-primary"
-
-          selectCrewBtn.addEventListener('click', () => {
-            let success = false
-            let bonus = 0
-            if(crew.skill = event.skill) {
-              bonus = 100
-              if (bonus >= event.threshold) {
-                success = true
-              }
-            }
-
-          })
-          liDiv.appendChild(selectCrewBtn)
-        }
-
-        liDiv.appendChild(h3)
-        liDiv.appendChild(p)
-        li.appendChild(liDiv)
-      }
+      
 
       //Based on Global Variable Which Tracks Mission Start Status
       // will build crew member list to add crew members at the 
       // beginning of the mission 
 
       if(!missionStart) {
-        CREW.forEach((crew) => buildCrew(crew))
+        CREW.forEach((crew) => buildCrew(crew, li))
         
        //Based on Global Variable Which Tracks Mission Start Status
       // will show Assigned Crew Members Available to Assign to Tasks
       // During the Mission
       } else {
-        let mission = fetchMission()
-        let crews = mission.crews
-        crews.forEach((crew) => buildCrew(crew))
-
+        fetchCrew(li)
       }
+    }
+
+    // build Crew Helper Function
+    function buildCrew(crew, li, event=null) {
+
+
+      
+      let h3 = document.createElement('h3')
+      let p = document.createElement('p')
+      let liDiv = document.createElement('div')
+      
+      liDiv.classList = "crew-members"
+      h3.textContent = "Name: " + crew.name
+      if (!missionStart) {
+        p.textContent = "Skills: " + crew.skill + " Cost: $" + crew.cost
+        addCrewMemberBtn = document.createElement('button')
+        addCrewMemberBtn.textContent = "Add Crew Member"
+        addCrewMemberBtn.classList = "add-crew btn btn-primary"
+
+        addCrewMemberBtn.addEventListener('click', () => {
+          postCrew(crew)
+        })
+        liDiv.appendChild(addCrewMemberBtn)
+      } else {
+        p.textContent = "Skills: " + crew.skill
+        selectCrewBtn = document.createElement('button')
+        selectCrewBtn.textContent = "Assign Member"
+        selectCrewBtn.classList = "add-crew btn btn-primary"
+
+        selectCrewBtn.addEventListener('click', () => {
+          let success = false
+          let bonus = 0
+          if(crew.skill = event.skill) {
+            bonus = 100
+            if (bonus >= event.threshold) {
+              success = true;
+              break
+            } else {
+              let threshold = event.threshold - bonus
+              threshhold -= crew.rating
+              if (threshold <= 0) {
+                success = true
+              } else {
+                
+              }
+
+            }
+            
+              
+            
+            
+          }
+
+        })
+        liDiv.appendChild(selectCrewBtn)
+      }
+
+      liDiv.appendChild(h3)
+      liDiv.appendChild(p)
+      li.appendChild(liDiv)
     }
       
 
