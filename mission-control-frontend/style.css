@@ -130,7 +130,13 @@ grid-row-gap: 13px;
 
 .btn-start {
   position: relative;
-  top: 200px;
+  top: 35px;
+  left: 10%;
+  border-radius: 30%;
+  height: 60px;
+  background-color: red;
+  color: white;
+
 }
 
 

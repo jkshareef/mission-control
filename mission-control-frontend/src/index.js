@@ -292,22 +292,8 @@ var MISSION_CREW = [];
       container.appendChild(div)
       document.body.appendChild(container)
 
-      
-
-      //Based on Global Variable Which Tracks Mission Start Status
-      // will build crew member list to add crew members at the 
-      // beginning of the mission 
-
-      if(!missionStart) {
         CREW.forEach((crew) => buildCrew(crew, li))
-        
-       //Based on Global Variable Which Tracks Mission Start Status
-      // will show Assigned Crew Members Available to Assign to Tasks
-      // During the Mission
-      } else {
-        // fetchCrew(li)
-        // fetchEvents()
-      }
+      
     }
 
     function newEvent(event) {
@@ -373,21 +359,10 @@ var MISSION_CREW = [];
       div.appendChild(ul)
       container.appendChild(div)
       document.body.appendChild(container)
-    }, 10000)
-    }
-
-    function eventPopup(crew,event, li) {
-
-   
-
-
-
-
-      
+    }, 30000)
     }
 
 
-    // build Crew Helper Function
     function buildCrew(crew, li, event=null) {
 
 
@@ -404,6 +379,7 @@ var MISSION_CREW = [];
         addCrewMemberBtn.textContent = "Add Crew Member"
         addCrewMemberBtn.classList = "add-crew btn btn-primary"
         addCrewMemberBtn.addEventListener('click', () => {
+          liDiv.remove()
           postCrew(crew)
         })
         liDiv.appendChild(addCrewMemberBtn)
@@ -417,6 +393,8 @@ var MISSION_CREW = [];
     function startGame() {
       btn = document.getElementById('start-game')
       btn.addEventListener('click', () => {
+        div = document.getElementById('middle-panel')
+        div.style = "background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover;;color:white;"
         fetchCrew()
         fetchEvents()
         resourceDepleting()
@@ -440,9 +418,7 @@ var MISSION_CREW = [];
 
     function selectCrew() {
       crewOptions()
-
     }
-
 
   function fetchEvents() {
     console.log("ran fetch")
@@ -568,23 +544,6 @@ var MISSION_CREW = [];
           return success
     }
     
-    // var scene = new THREE.Scene();
-    // var camera = new THREE.PerspectiveCamera( 75, destDiv.innerWidth / destDiv.innerHeight, 0.1, 1000 );
-    // var loader = new THREE.GLTFLoader();
-    // loader.load( '../images_3D/Saturn_1_120536', function ( gltf ) {
-
-    //   scene.add( gltf.scene );
-
-    // }, undefined, function ( error ) {
-
-    //   console.error( error );
-
-    // } );
-
-    // var renderer = new THREE.WebGLRenderer();
-    // renderer.setSize( destDiv.innerWidth, destDiv.innerHeight );
-    // document.body.appendChild( renderer.domElement );
-   
 
     
     
