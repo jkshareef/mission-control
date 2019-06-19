@@ -335,29 +335,9 @@ var MISSION_CREW = [];
         selectCrewBtn.classList = "add-crew btn btn-primary"
 
         selectCrewBtn.addEventListener('click', () => {
-          let success = false
-          let bonus = 0
-          if(crew.skill = event.skill) {
-            bonus = 100
-            if (bonus >= event.threshold) {
-              success = true;
-              break
-            } else {
-              let threshold = event.threshold - bonus
-              threshhold -= crew.rating
-              if (threshold <= 0) {
-                success = true
-              } else {
-                
-              }
-
-            }
-            
-              
-            
-            
-          }
-
+          // ******  ADD HOOK TO EVENT  **************
+          // ******* PASS CREW FROM HERE  ************
+          // ** PASS CREW AND EVENT TO eventSuccess() **
         })
         liDiv.appendChild(selectCrewBtn)
       }
@@ -476,6 +456,42 @@ var MISSION_CREW = [];
 
     }
 
+    function eventSuccess(crew, event) {
+      let success = false
+          let bonus = 0
+          if(crew.skill = event.skill) {
+            bonus = 100
+            if (bonus >= event.threshold) {
+              success = true;
+            } else {
+              let threshold = event.threshold - bonus
+              threshold -= crew.rating
+              if (threshold <= 0) {
+                success = true
+              } else {
+                let thresholdArray =  [...Array(threshold).keys()]
+                for (let i=0; i < crew.rating; i++){
+                  let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
+                  if (rand === thresholdArray[0]) {
+                    success = true
+                  }
+                }
+              }
+
+            }
+          } else {
+            let threshold = event.threshold
+            let thresholdArray = [...Array(threshold).keys()]
+            for (let i=0; i < crew.rating / 2; i++){
+              let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
+              if (rand === thresholdArray[0]) {
+                success = true
+              }
+
+            }
+          }
+          return success
+    }
     
     // var scene = new THREE.Scene();
     // var camera = new THREE.PerspectiveCamera( 75, destDiv.innerWidth / destDiv.innerHeight, 0.1, 1000 );
