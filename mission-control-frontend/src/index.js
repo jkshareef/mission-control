@@ -462,6 +462,7 @@ var MISSION_CREW = [];
     function missionProgress() {
       let div = document.getElementById('middle-panel')
       let h2 = document.createElement('h2')
+
       h2.textContent = `${destination.distance} Miles`
 
       div.appendChild(h2)
@@ -469,7 +470,11 @@ var MISSION_CREW = [];
       const rate = destination.distance * 0.1
       let remainingDistance = destination.distance
       
+     
       const distanceDown =  setInterval(function () {
+        let fuelBar = document.getElementById('fuel-stat')
+        fuelStat = parseInt(fuelBar.style.width)
+        if (fuelStat > 0) {
           if (remainingDistance >= rate) {
             remainingDistance = remainingDistance - rate
             h2.textContent = `${remainingDistance.toFixed(0)} Miles`
@@ -479,10 +484,12 @@ var MISSION_CREW = [];
             clearInterval(distanceDown)
             console.log("Am I stopping?")
           }
+        }
         }, 1000)
       
       
-    }
+    
+  }
 
     function handleCrewDelete(crew, li) {
       li.remove();
