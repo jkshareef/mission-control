@@ -566,3 +566,13 @@ body {
 width: 100%;
 background-color: gray;
 }
+
+ul {
+  position: relative;
+}
+
+.event-desc {
+  color: red;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+}

@@ -54,6 +54,7 @@
 var FUNDING = 1000000;
 var MISSION_CREW = [];
 
+
   document.addEventListener('DOMContentLoaded', () => {
     main();
     
@@ -66,7 +67,7 @@ var MISSION_CREW = [];
       configDestination();
       startGame();
     }
-  
+    //Posts new mission to server
     function postMission() {
       let config = {
         method: 'POST',
@@ -78,14 +79,16 @@ var MISSION_CREW = [];
           mission_id = json.id
         })
     }
-
-    function fetchCrew(li) {
+    
+    function fetchCrew() {
       fetch(URL + `missions/${mission_id}`)
       .then(resp => resp.json())
       .then(json => {
         let mission = json
         mission.crews.forEach((crew) => {
-          buildCrew(crew, li)
+          MISSION_CREW.push(crew)
+          console.log("Mission crew insertion:" + MISSION_CREW)
+          // buildCrew(crew, li)
         })
       })
     }
@@ -220,7 +223,6 @@ var MISSION_CREW = [];
       FUNDING = FUNDING - crew.cost
       h1 = document.getElementById('funding')
       h1.textContent = FUNDING;
-      console.log("posting")
       let payload = { name: crew.name, skill: crew.skill, rating: crew.rating, cost: crew.cost, gender: crew.gender, mission_id: mission_id }
       let config = {
         method: 'POST',
@@ -230,7 +232,6 @@ var MISSION_CREW = [];
       fetch(URL + 'crews', config)
         .then(resp => resp.json())
         .then(json => {
-          console.log(json)
           addCrew(json)
         })
     }
@@ -305,9 +306,87 @@ var MISSION_CREW = [];
       // will show Assigned Crew Members Available to Assign to Tasks
       // During the Mission
       } else {
-        fetchCrew(li)
+        // fetchCrew(li)
+        // fetchEvents()
       }
     }
+
+    function newEvent(event) {
+      
+      // fetchCrew()
+      setInterval(function () {
+      let container = document.createElement('div')
+      container.id = "container-popup"
+      container.classList.remove("hidden")
+      let div = document.createElement('div')
+      div.style = "width: 500px"
+      eventDescription = document.createElement('h4')
+      eventDescription.textContent = event.content
+      eventDescription.classList = 'event-desc'
+
+      div.classList = "crew-popup"
+      let ul = document.createElement('ul')
+
+
+      ul.id = "crew-options"
+      ul.classList = "crew-ul"
+
+      let closeButton = document.createElement('button')
+      closeButton.textContent = "X"
+      closeButton.style = "float:left;"
+      closeButton.classList = "btn-danger"
+      closeButton.addEventListener('click', () => {
+        closeButton.parentNode.parentNode.classList = "hidden"
+        closeButton.parentNode.parentNode.innerHTML = ""
+      })
+      console.log(MISSION_CREW)
+      MISSION_CREW.forEach(crew => {
+        let liDiv = document.createElement('div')
+        let h3 = document.createElement('h3')
+        let p = document.createElement('p')
+        let li = document.createElement('li')
+        h3.textContent = crew.name
+        liDiv.classList = 'mission-members'
+
+
+        //triggered by events
+        p.textContent = "Skills: " + crew.skill
+        selectCrewBtn = document.createElement('button')
+        selectCrewBtn.textContent = "Assign Member"
+        selectCrewBtn.classList = "add-crew btn btn-primary"
+
+        selectCrewBtn.addEventListener('click', () => {
+            console.log(eventSuccess(crew, event))
+        })
+        liDiv.appendChild(selectCrewBtn)
+
+
+
+        liDiv.appendChild(h3)
+        liDiv.appendChild(p)
+        li.appendChild(liDiv)
+        ul.appendChild(li)
+        
+      })
+      
+      div.appendChild(closeButton)
+      div.appendChild(eventDescription)
+      div.appendChild(ul)
+      container.appendChild(div)
+      document.body.appendChild(container)
+    }, 10000)
+    }
+
+    function eventPopup(crew,event, li) {
+
+   
+
+
+
+
+      
+    }
+
 
     // build Crew Helper Function
     function buildCrew(crew, li, event=null) {
@@ -320,29 +399,15 @@ var MISSION_CREW = [];
       
       liDiv.classList = "crew-members"
       h3.textContent = "Name: " + crew.name
-      if (!missionStart) {
+      //configures crew options before start
         p.textContent = "Skills: " + crew.skill + " Cost: $" + crew.cost
         addCrewMemberBtn = document.createElement('button')
         addCrewMemberBtn.textContent = "Add Crew Member"
         addCrewMemberBtn.classList = "add-crew btn btn-primary"
-
         addCrewMemberBtn.addEventListener('click', () => {
           postCrew(crew)
         })
         liDiv.appendChild(addCrewMemberBtn)
-      } else {
-        p.textContent = "Skills: " + crew.skill
-        selectCrewBtn = document.createElement('button')
-        selectCrewBtn.textContent = "Assign Member"
-        selectCrewBtn.classList = "add-crew btn btn-primary"
-
-        selectCrewBtn.addEventListener('click', () => {
-          // ******  ADD HOOK TO EVENT  **************
-          // ******* PASS CREW FROM HERE  ************
-          // ** PASS CREW AND EVENT TO eventSuccess() **
-        })
-        liDiv.appendChild(selectCrewBtn)
-      }
 
       liDiv.appendChild(h3)
       liDiv.appendChild(p)
@@ -353,22 +418,20 @@ var MISSION_CREW = [];
     function startGame() {
       btn = document.getElementById('start-game')
       btn.addEventListener('click', () => {
-          
+        fetchCrew()
+        fetchEvents()
         resourceDepleting()
 
         crewBtn = document.getElementById('add-crew')
         crewBtn.remove();
         crewDeleteButtons = document.querySelectorAll('#crew-delete')
         crewDeleteButtons.forEach(btn => {
-          console.log(btn)
           btn.remove();
-
-          
           
         })
-        startEvents();
         missionProgress();
         missionStart = true
+       
 
       })
       
@@ -382,21 +445,37 @@ var MISSION_CREW = [];
     }
 
 
-    function startEvents() {
-      
-    }
+  function fetchEvents() {
+    console.log("ran fetch")
+    fetch(URL + "events")
+    .then(resp => resp.json())
+    .then(events => buildEvents(events))
+
+}
+
+  function buildEvents(events) {
+      let rand = events[Math.floor(Math.random() * events.length)];
+      console.log(rand)
+      newEvent(rand);
+  }
+
 
     function missionProgress() {
       let div = document.getElementById('middle-panel')
       let h2 = document.createElement('h2')
+
       h2.textContent = `${destination.distance} Miles`
 
       div.appendChild(h2)
 
-      const rate = destination.distance * 0.1
-      remainingDistance = destination.distance
+      const rate = destination.distance * 0.00001
+      let remainingDistance = destination.distance
       
+     
       const distanceDown =  setInterval(function () {
+        let fuelBar = document.getElementById('fuel-stat')
+        fuelStat = parseInt(fuelBar.style.width)
+        if (fuelStat > 0) {
           if (remainingDistance >= rate) {
             remainingDistance = remainingDistance - rate
             h2.textContent = `${remainingDistance.toFixed(0)} Miles`
@@ -405,10 +484,12 @@ var MISSION_CREW = [];
             gameState()
             clearInterval(distanceDown)
           }
+        }
         }, 1000)
       
       
-    }
+    
+  }
 
     function handleCrewDelete(crew, li) {
       li.remove();
@@ -417,13 +498,6 @@ var MISSION_CREW = [];
       })
     }
       
-    // function resourceDeplete() {
-    //       for(let i = 0; i < 100; i++){
-    //         resourceDepleting();
-            
-    //       }
-          
-    // }
 
     function resourceDepleting(){
       let medBar = document.getElementById('med-stat')
