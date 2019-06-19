@@ -47,6 +47,11 @@ grid-row-gap: 13px;
     min-width: 400px;
 }
 
+.info-right {
+  grid-area: 1 / 5 / 5/ 5;
+  background-color: black;
+}
+
 .display-left {
     grid-area: 1/ 3 /4/1; 
 }
@@ -429,11 +434,12 @@ i {
 #mission-objective {
   font-family: 'Courier New', Courier, monospace;
   width: 100%;
-  height: 250px;
-  	border-radius:10px;
+  height: 100px;
+  color: green;
+  	/* border-radius:10px;
 -moz-border-radius:10px;
--webkit-border-radius:10px;
-background-color: gray;
+-webkit-border-radius:10px; */
+
 
 }
 
