@@ -228,10 +228,11 @@ var MISSION_CREW = [];
       let h4 = document.createElement('h4')
       let p = document.createElement('p')
       let deleteButton = document.createElement('button')
+      liDiv.classList = "mission-members"
       li.classList = "crew-li"
       deleteButton.textContent = "x"
       deleteButton.id = 'crew-delete'
-      deleteButton.style = "max-width:20px;float:right;"
+      deleteButton.style = "max-width:20px;float:right; margin-right: 20px;"
       deleteButton.addEventListener('click', () => {
         handleCrewDelete(crew, li)
       })
