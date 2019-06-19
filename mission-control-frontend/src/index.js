@@ -325,11 +325,7 @@ var MISSION_CREW = [];
 
       div.classList = "crew-popup"
       let ul = document.createElement('ul')
-      
-      
-      
 
-    
 
       ul.id = "crew-options"
       ul.classList = "crew-ul"
@@ -349,13 +345,26 @@ var MISSION_CREW = [];
         let p = document.createElement('p')
         let li = document.createElement('li')
         h3.textContent = crew.name
-        p.textContent= crew.skill
         liDiv.classList = 'mission-members'
+
+
+        //triggered by events
+        p.textContent = "Skills: " + crew.skill
+        selectCrewBtn = document.createElement('button')
+        selectCrewBtn.textContent = "Assign Member"
+        selectCrewBtn.classList = "add-crew btn btn-primary"
+
+        selectCrewBtn.addEventListener('click', () => {
+            console.log(eventSuccess(crew, event))
+        })
+        liDiv.appendChild(selectCrewBtn)
+
+
+
         liDiv.appendChild(h3)
         liDiv.appendChild(p)
         li.appendChild(liDiv)
         ul.appendChild(li)
-      
         
       })
       
@@ -390,43 +399,14 @@ var MISSION_CREW = [];
       liDiv.classList = "crew-members"
       h3.textContent = "Name: " + crew.name
       //configures crew options before start
-      if (!missionStart) {
         p.textContent = "Skills: " + crew.skill + " Cost: $" + crew.cost
         addCrewMemberBtn = document.createElement('button')
         addCrewMemberBtn.textContent = "Add Crew Member"
         addCrewMemberBtn.classList = "add-crew btn btn-primary"
-
         addCrewMemberBtn.addEventListener('click', () => {
           postCrew(crew)
         })
         liDiv.appendChild(addCrewMemberBtn)
-      } else {
-        //triggered by events
-        p.textContent = "Skills: " + crew.skill
-        selectCrewBtn = document.createElement('button')
-        selectCrewBtn.textContent = "Assign Member"
-        selectCrewBtn.classList = "add-crew btn btn-primary"
-
-        selectCrewBtn.addEventListener('click', () => {
-          let success = false
-          let bonus = 0
-          if(crew.skill = event.skill) {
-            bonus = 100
-            if (bonus >= event.threshold) {
-              success = true;
-            } else {
-              let threshold = event.threshold - bonus
-              threshhold -= crew.rating
-              if (threshold <= 0) {
-                success = true
-              } else {
-                
-              }
-            }
-          }
-        })
-        liDiv.appendChild(selectCrewBtn)
-      }
 
       liDiv.appendChild(h3)
       liDiv.appendChild(p)
@@ -544,6 +524,42 @@ var MISSION_CREW = [];
 
     }
 
+    function eventSuccess(crew, event) {
+      let success = false
+          let bonus = 0
+          if(crew.skill == event.skill) {
+            bonus = 100
+            if (bonus >= event.threshold) {
+              success = true;
+            } else {
+              let threshold = event.threshold - bonus
+              threshold -= crew.rating
+              if (threshold <= 0) {
+                success = true
+              } else {
+                let thresholdArray =  [...Array(threshold).keys()]
+                for (let i=0; i < crew.rating; i++){
+                  let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
+                  if (rand === thresholdArray[0]) {
+                    success = true
+                  }
+                }
+              }
+
+            }
+          } else {
+            let threshold = event.threshold
+            let thresholdArray = [...Array(threshold).keys()]
+            for (let i=0; i < crew.rating / 2; i++){
+              let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
+              if (rand === thresholdArray[0]) {
+                success = true
+              }
+
+            }
+          }
+          return success
+    }
     
     // var scene = new THREE.Scene();
     // var camera = new THREE.PerspectiveCamera( 75, destDiv.innerWidth / destDiv.innerHeight, 0.1, 1000 );
