@@ -30,8 +30,11 @@ Crew.delete_all
 events = Event.create([
     {content: "A fuel leak has been detected by the main computer, 
     Identify and Fix the issue to stop the depletion of fuel", 
-    target_resource: "fuel", resource_cost: 15, acceleration: true},
+    target_resource: "fuel", resource_cost: 15, acceleration: true, skill: "Chemist", threshold: 100},
     {content: "Soil has failed to yield crops, 
         adjust and replant to replenish food supplies",
-    target_resource: "food", resource_cost: 15, acceleration: false}
+    target_resource: "food", resource_cost: 15, acceleration: false, skill: "Biologist", threshold: 120}
+    {content: "Space Debris has Created Several Large Breaches in the Ship! Many Sections of the Ship have Been Closed Off! 
+        A Mechanic would be needed to Fix the Problem. (Effect: -20% to all Resources) "}, resource_cost: 20, acceleration: true, skill: "Mechanic", threshold: 200}
+        
 ])
