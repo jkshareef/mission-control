@@ -9,4 +9,9 @@ class MissionsController < ApplicationController
         mission = Mission.create
         render json: MissionSerializer.new(mission).to_serialized_json
     end
+
+    def show
+        mission = Mission.find(params[:id])
+        render json: MissionSerializer.new(mission).to_serialized_json
+    end
 end
