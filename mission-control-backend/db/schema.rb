@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_19_075213) do
+ActiveRecord::Schema.define(version: 2019_06_19_175959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,14 +41,12 @@ ActiveRecord::Schema.define(version: 2019_06_19_075213) do
   create_table "events", force: :cascade do |t|
     t.string "content"
     t.integer "resource_cost"
-    t.bigint "mission_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "target_resource"
     t.boolean "acceleration"
     t.string "skill"
     t.integer "threshold"
-    t.index ["mission_id"], name: "index_events_on_mission_id"
   end
 
   create_table "missions", force: :cascade do |t|
@@ -69,6 +67,5 @@ ActiveRecord::Schema.define(version: 2019_06_19_075213) do
 
   add_foreign_key "crews", "missions"
   add_foreign_key "destinations", "missions"
-  add_foreign_key "events", "missions"
   add_foreign_key "resources", "missions"
 end
