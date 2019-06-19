@@ -467,7 +467,7 @@ var MISSION_CREW = [];
 
       div.appendChild(h2)
 
-      const rate = destination.distance * 0.1
+      const rate = destination.distance * 0.00001
       let remainingDistance = destination.distance
       
      
