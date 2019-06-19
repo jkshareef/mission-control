@@ -49,7 +49,20 @@ grid-row-gap: 13px;
 
 .info-right {
   grid-area: 1 / 5 / 5/ 5;
+}
+
+.mission-objective {
+  min-height: 190px;
   background-color: black;
+    box-shadow: 10px 10px 29px -15px rgba(0,0,0,0.75);
+  	border-radius:10px;
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+}
+
+.mission-objective h1{
+  margin-left: 5px;
+  margin-top:5px;
 }
 
 .display-left {
