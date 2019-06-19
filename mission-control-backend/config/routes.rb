@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/events', to: 'events#index'
   get 'events/:id', to: 'events#show'
   post '/missions', to: 'missions#create'
+  get 'missions/:id', to: 'missions#show'
   get 'missions', to: 'missions#index'
   # resources :resources 
   # resources :destinations
