@@ -217,6 +217,18 @@ var MISSION_CREW = [];
     }
 
     function startGame() {
+
+      setInterval(function () {
+        if(FUNDING <= 0){
+          o2Btn = document.getElementById('o2-btn').disabled = true;
+          foodBtn = document.getElementById('food-btn').disabled = true;
+          fuelBtn = document.getElementById('fuel-btn').disabled = true;
+          medBtn = document.getElementById('med-btn').disabled = true;
+
+          gameFailed();
+        }
+      }, 100)
+
       btn = document.getElementById('start-game')
       btn.addEventListener('click', () => {
         let instructions = document.getElementById('instructions');
@@ -687,6 +699,57 @@ var MISSION_CREW = [];
         document.body.appendChild(container)
       }
     }
+
+function gameFailed(FUNDING) {
+
+  let fuelBar = document.getElementById('fuel-stat')
+  let fuelStat = parseInt(fuelBar.style.width)
+
+  let foodBar = document.getElementById('food-stat')
+  let foodStat = parseInt(foodBar.style.width)
+
+  let medBar = document.getElementById('med-stat')
+  let medStat = parseInt(medBar.style.width)
+
+  let o2Bar = document.getElementById('o2-stat')
+  let o2Stat = parseInt(o2Bar.style.width)
+
+  if (FUNDING === 0 && fuelStat > 0 && foodStat > 0 && medStat > 0 && o2Stat > 0) {
+    MISSION_COMPLETE = true
+    let container = document.createElement("div")
+    container.classList = "container-message"
+
+    let div = document.createElement('div')
+    let h3 = document.createElement('h3')
+    h3.classList = "mission-message"
+    h3.textContent = "You failed! Your ship crashed and your crew has died"
+
+
+    div.classList = "message-popup"
+
+    let continueBtn = document.createElement('button')
+    continueBtn.textContent = "Continue"
+    continueBtn.classList = "btn btn-primary btn-message"
+
+    continueBtn.addEventListener('click', () => {
+      location.reload(true)
+    })
+
+    let exitBtn = document.createElement("button")
+    exitBtn.textContent = "Exit"
+    exitBtn.classList = "btn btn-danger btn-message"
+
+    exitBtn.addEventListener('click', () => {
+      location.reload(true)
+    })
+
+    div.appendChild(h3)
+    div.appendChild(continueBtn)
+    div.appendChild(exitBtn)
+    container.appendChild(div)
+    document.body.appendChild(container)
+  }
+}
 
 
     
