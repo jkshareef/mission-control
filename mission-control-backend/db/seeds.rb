@@ -28,13 +28,33 @@ Crew.delete_all
 # ])
 
 events = Event.create([
-    {content: "A fuel leak has been detected by the main computer, 
+    {content: "An anamoly in the Feul Conversion System  has been detected by the main computer!
     Identify and Fix the issue to stop the depletion of fuel", 
     target_resource: "fuel", resource_cost: 15, acceleration: true, skill: "Chemist", threshold: 100},
     {content: "Soil has failed to yield crops, 
         adjust and replant to replenish food supplies",
-    target_resource: "food", resource_cost: 15, acceleration: false, skill: "Biologist", threshold: 120}
+    target_resource: "food", resource_cost: 15, acceleration: false, skill: "Biologist", threshold: 120},
     {content: "Space Debris has Created Several Large Breaches in the Ship! Many Sections of the Ship have Been Closed Off! 
-        A Mechanic would be needed to Fix the Problem. (Effect: -20% to all Resources) "}, resource_cost: 20, acceleration: true, skill: "Mechanic", threshold: 200}
+    A Mechanic would be needed to Fix the Problem. (Effect: -20% to all Resources) ",
+    target_resource: "all", resource_cost: 20, acceleration: true, skill: "Mechanic", threshold: 200},
+    {content: "Your Ship's Navigation System has failed, find the correct coordinates to rechart your course", 
+        resource_cost: 0, acceleration: false, skill: "Navigator" threshold: 200},
+    {content: "Long Distance Sensors Have Detected an Incoming Asteroid. Use of Ship Guns to Break
+        up the Object Could Prevent a Collision", target_resource: "all", resource_cost: 30, acceleration: false skill: "Gunner" threshold: 250},
+    {content: "The Central Engine Relay has Gone out of Phase and is no Longer Providing Energy!" target_resource: "fuel" resource_cost: 20, 
+        acceleration: true, skill: "Engineer" threshold: 220},
+    {content: "There is an Outbreak of a Rare Virus", target_resource: "medicine" resource_cost: 30, acceleration: true, skill: threshold: 200},
+    # {content:  target_resource: resource_cost: acceleration: skill: threshold:},
+    # {content: target_resource: resource_cost: acceleration: skill: threshold:},
+    # {content: target_resource: resource_cost: acceleration: skill: threshold:},
+    # {content: target_resource: resource_cost: acceleration: skill: threshold:},
+    # {content: target_resource: resource_cost: acceleration: skill: threshold:},
+    # {content: target_resource: resource_cost: acceleration: skill: threshold:},
+    # {content: target_resource: resource_cost: acceleration: skill: threshold:},
+    # {content: target_resource: resource_cost: acceleration: skill: threshold:},
+
+
+
+
         
 ])
