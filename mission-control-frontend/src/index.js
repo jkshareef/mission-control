@@ -297,8 +297,6 @@ var MISSION_CREW = [];
     }
 
     function newEvent(event) {
-      
-      // fetchCrew()
       setInterval(function () {
       let container = document.createElement('div')
       container.id = "container-popup"
@@ -341,7 +339,19 @@ var MISSION_CREW = [];
         selectCrewBtn.classList = "add-crew btn btn-primary"
 
         selectCrewBtn.addEventListener('click', () => {
-            console.log(eventSuccess(crew, event))
+          let success = eventSuccess(crew, event)
+          eventPenalty(success, crew, event)
+          h1 = document.createElement('h1')
+
+          if(success == false) {
+            h1.textContent = `${crew.name} failed to successfully navigate the crisis!`
+            ul.remove()
+            div.appendChild(h1)
+          } else {
+            h1.textContent = `${crew.name} succeeded!`
+            ul.remove()
+            div.appendChild(h1)
+          }
         })
         liDiv.appendChild(selectCrewBtn)
 
@@ -359,9 +369,21 @@ var MISSION_CREW = [];
       div.appendChild(ul)
       container.appendChild(div)
       document.body.appendChild(container)
-    }, 30000)
+    }, 10000)
     }
-
+    function eventPenalty(success, crew, event) {
+        if (success == true) {
+          console.log(crew.name + " successfully navigated the crisis")
+        } else {
+          if(event.target_resource == 'fuel') {
+            console.log(crew.name + " failed to successfully navigate")
+            let fuelBar = document.getElementById('fuel-stat')
+            fuelStat = parseInt(fuelBar.style.width)
+            fuelStat = fuelStat - 50;
+            fuelBar.style.width = fuelStat + "%";
+          }
+        }
+    }
 
     function buildCrew(crew, li, event=null) {
 
