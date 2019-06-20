@@ -128,6 +128,14 @@ grid-row-gap: 13px;
   
 }
 
+.btn-message {
+  position: relative;
+  left: 15rem;
+  padding: 1rem 2rem;
+  margin-right: 20px;
+  top: 20rem;
+}
+
 .btn-start {
   position: relative;
   top: 35px;
@@ -261,6 +269,23 @@ img {
   animation-direction: forwards;
 }
 
+.container-message {
+  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .67);
+  z-index: 999;
+  animation-name: everything;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0s;
+  animation-direction: forwards;
+}
+
+
 
 
 .popup {
@@ -369,6 +394,20 @@ img {
 
 }
 
+.message-popup {
+  width: 50rem;
+  height: 35rem;
+  background: #1a1a1a;
+  opacity: 0.9;
+  position: relative;
+  top: 25%;
+  right: 0;
+  left: 0;
+  margin: auto;
+  padding: 5px 0 0;
+  overflow-y: scroll;
+}
+
 
 .crew-popup {
   width: 400px;
@@ -459,9 +498,14 @@ i {
   	/* border-radius:10px;
 -moz-border-radius:10px;
 -webkit-border-radius:10px; */
-
-
 }
+
+.mission-end-message {
+  position: relative;
+  text-align: center;
+  top: 45%;
+}
+
 
 .spaceship-gifs {
   max-height: 50px;

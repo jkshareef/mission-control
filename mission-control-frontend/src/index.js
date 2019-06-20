@@ -6,11 +6,33 @@
 
   //celestial bodies
     const URL = "http://localhost:3000/"
+    let speeds = {}
+    
+    function compare(a,b) {
+      if (a.distance < b.distance) {
+        return -1
+      }
+      if (a.distance > b.distance) {
+        return 1
+      }
+      return 0
+    }
+
+    function getSpeeds() {
+      let rate = 0.001
+      BODIES.sort(compare)
+      console.log(BODIES)
+      BODIES.forEach((body) => {
+        speeds[body.name] = rate
+        rate = rate / 1.25
+      })
+    }
 
     let mission_id = ""
     let missionStart = false
     let destination = ""
     let destinationIndex = 0
+    let remainingDistance = ""
     let bodiesGIF =[{name: "Earth", object_source: "./src/images/earth.gif"},
     {name: "Moon", distance: 238900, object_source: "./src/images/moon.gif"},
     {name: "Mars", distance: 33900000, object_source: "./src/images/mars.gif" },
@@ -64,6 +86,7 @@ var MISSION_CREW = [];
       configCrew();
       configStats();
       configDestination();
+      getSpeeds()
       startGame();
     }
     //Posts new mission to server
@@ -443,25 +466,35 @@ var MISSION_CREW = [];
 
       div.appendChild(h2)
 
-      const rate = destination.distance * 0.00001
+      const rate = destination.distance * speeds[destination.name]
       let remainingDistance = destination.distance
       
      
       const distanceDown =  setInterval(function () {
         let fuelBar = document.getElementById('fuel-stat')
-        fuelStat = parseInt(fuelBar.style.width)
-        if (fuelStat > 0) {
+        let fuelStat = parseInt(fuelBar.style.width)
+
+        let foodBar = document.getElementById('food-stat')
+        let foodStat = parseInt(foodBar.style.width)
+
+        let medBar = document.getElementById('med-stat')
+        let medStat = parseInt(medBar.style.width)
+
+        let o2Bar = document.getElementById('o2-stat')
+        let o2Stat = parseInt(o2Bar.style.width)
+
+        if (fuelStat > 0 && foodStat > 0 && medStat > 0 && o2Stat > 0 ) {
           if (remainingDistance >= rate) {
             remainingDistance = remainingDistance - rate
             h2.textContent = `${remainingDistance.toFixed(0)} Miles`
-          } else if (remainingDistance.toFixed(0) === 0) {
-            console.log("We made it in")
-            h2.textContent = `${remainingDistance} Miles`
+          } else if (parseInt(remainingDistance.toFixed(0), 10) === 0) {
+            h2.textContent = `${parseInt(remainingDistance.toFixed(0), 10)} Miles`
+            remainingDistance = 0
+            gameState(remainingDistance)
             clearInterval(distanceDown)
-            console.log("Am I stopping?")
           }
         }
-        }, 1000)
+      }, 100)
       
       
     
@@ -503,7 +536,7 @@ var MISSION_CREW = [];
       currentFuelStat = currentFuelStat - 5;
       fuelBar.style.width = currentFuelStat + "%";
 
-      }, 2000)
+      }, 10000)
 
     }
 
@@ -543,6 +576,45 @@ var MISSION_CREW = [];
           }
           return success
     }
+
+    function gameState(remainingDistance) {
+      if (remainingDistance === 0) {
+        let container = document.createElement("div")
+        container.classList = "container-message"
+
+        let div = document.createElement('div')
+        let h3 = document.createElement('h3')
+        h3.classList = "mission-end-message"
+        h3.textContent = "Your Crew Has Reached The Destination!"
+        
+        
+        div.classList = "message-popup"
+        
+        let continueBtn = document.createElement('button')
+        continueBtn.textContent = "Continue"
+        continueBtn.classList = "btn btn-primary btn-message"
+
+        continueBtn.addEventListener('click', () => {
+          location.reload(true)
+        })
+
+        let exitBtn = document.createElement("button")
+        exitBtn.textContent = "Exit"
+        exitBtn.classList = "btn btn-danger btn-message"
+
+        exitBtn.addEventListener('click', () => {
+          location.reload(true)
+        })
+
+        div.appendChild(h3)
+        div.appendChild(continueBtn)
+        div.appendChild(exitBtn)
+        container.appendChild(div)
+        document.body.appendChild(container)
+      }
+    }
+
+
     
 
     
