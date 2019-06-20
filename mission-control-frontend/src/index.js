@@ -383,6 +383,7 @@ var MISSION_CREW = [];
       eventDescription = document.createElement('h4')
       eventDescription.textContent = event.content
       eventDescription.classList = 'event-desc'
+      
 
       div.classList = "crew-popup"
       let ul = document.createElement('ul')
@@ -432,7 +433,7 @@ var MISSION_CREW = [];
         })
         liDiv.appendChild(selectCrewBtn)
 
-
+        
 
         liDiv.appendChild(h4)
         liDiv.appendChild(p)
@@ -440,15 +441,34 @@ var MISSION_CREW = [];
         ul.appendChild(li)
         
       })
+
+      let timerDiv = document.createElement('div')
+      timerDiv.classList = "event-timer"
+      timerDiv.textContent = "Time Until Imminent Failure: "
+      let countSpan = document.createElement('span')
+      countSpan.textContent = 30
+      timerDiv.appendChild(countSpan)
+
+
+        let countdown = setInterval(() => {
+          if (countSpan.textContent > 0) {
+            countSpan.textContent -= 1
+          } else {
+            eventPenalty(false, null, event, h1)
+            clearInterval(countdown)
+          }
+        }, 1000)
       
       div.appendChild(closeButton)
       div.appendChild(eventDescription)
       div.appendChild(ul)
+      
       container.appendChild(div)
+      container.appendChild(timerDiv)
       document.body.appendChild(container)
     }
 
-    function eventPenalty(success, crew, event) {
+    function eventPenalty(success, crew, event, h1=null) {
         let evResource = event.target_resource
         if (success == true) {
           console.log(crew.name + " successfully navigated the crisis")
@@ -458,7 +478,9 @@ var MISSION_CREW = [];
           }
         } else {
           if(evResource != null && evResource != "all") {
-            console.log(crew.name + " failed to successfully navigate")
+            if (crew === null) {
+              h1.textContent = `You failed to successfully navigate the crisis in time!`
+            }
             let bar = document.getElementById(`${evResource}-stat`)
             let stat = parseInt(bar.style.width)
             stat = stat - event.resource_cost;
