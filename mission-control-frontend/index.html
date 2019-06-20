@@ -47,7 +47,9 @@
                 <img src="./src/images/control-center.png" alt="">
             </div>
             <div class="s-column s-middle" style="background-color:#bbb;">
-                <img src="./src/images/control-center.png" alt="">
+                <div id="event-console">
+                    <p id="event-console-content"></p>
+                </div>
             </div>
             <div class="s-column s-right" style="background-color:#ccc;">
                 <img src="./src/images/control-center.png" alt="">
@@ -62,8 +64,8 @@
     <div class="cmd-center">
         <div class="wrapper">
             <div class="monitor">
-                <div class="monitor-content">
-                    <input id="personal-monitor" type="text-field" value="001101001010010100100101001">
+                <div id="personal-monitor-div" class="monitor-content">
+                    <textarea id="personal-monitor" class="hidden" rows="10" cols="26"></textarea>
                 </div>
             </div>
 
