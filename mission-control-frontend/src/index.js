@@ -21,7 +21,6 @@
     function getSpeeds() {
       let rate = 0.001
       BODIES.sort(compare)
-      console.log(BODIES)
       BODIES.forEach((body) => {
         speeds[body.name] = rate
         rate = rate / 1.25
@@ -219,7 +218,7 @@ var MISSION_CREW = [];
       let h1 = document.getElementById('destination-header')
       nextBtn.addEventListener('click', () => {
           let div = document.getElementById('destination-panel')
-          if (destinationIndex < bodiesGIF.length && destination > -bodiesGIF.length) {
+          if (destinationIndex < bodiesGIF.length) {
             destinationIndex++
             let bodyObj = bodiesGIF[destinationIndex]
 
@@ -238,8 +237,6 @@ var MISSION_CREW = [];
       })
 
     }
-
-
 
     function postCrew(crew) {
       FUNDING = FUNDING - crew.cost
@@ -461,9 +458,6 @@ var MISSION_CREW = [];
       
     }
 
-    function selectCrew() {
-      crewOptions()
-    }
 
   function fetchEvents() {
     console.log("ran fetch")
