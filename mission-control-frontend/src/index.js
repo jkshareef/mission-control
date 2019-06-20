@@ -219,6 +219,8 @@ var MISSION_CREW = [];
     function startGame() {
       btn = document.getElementById('start-game')
       btn.addEventListener('click', () => {
+        let instructions = document.getElementById('instructions');
+        instructions.remove();
         let selectedDestination = document.getElementById('destination-header')
         if (selectedDestination.textContent === "Earth") {
           let container = document.createElement("div")
@@ -379,34 +381,26 @@ var MISSION_CREW = [];
       container.id = "container-popup"
       container.classList.remove("hidden")
       let div = document.createElement('div')
-      div.style = "width: 500px"
-      eventDescription = document.createElement('h4')
+      eventDiv = document.createElement('div')
+      eventDiv.classList = 'event-div'
+      eventDescription = document.createElement('h3')
       eventDescription.textContent = event.content
       eventDescription.classList = 'event-desc'
 
-      div.classList = "crew-popup"
+      div.classList = "event-popup"
       let ul = document.createElement('ul')
 
 
       ul.id = "crew-options"
-      ul.classList = "crew-ul"
+      ul.classList = "event-ul"
 
-      let closeButton = document.createElement('button')
-      closeButton.textContent = "X"
-      closeButton.style = "float:left;"
-      closeButton.classList = "btn-danger"
-      closeButton.addEventListener('click', () => {
-        closeButton.parentNode.parentNode.classList = "hidden"
-        closeButton.parentNode.parentNode.innerHTML = ""
-      })
-      // console.log(MISSION_CREW)
       MISSION_CREW.forEach(crew => {
         let liDiv = document.createElement('div')
         let h4 = document.createElement('h4')
         let p = document.createElement('p')
         let li = document.createElement('li')
         h4.textContent = crew.name
-        liDiv.classList = 'mission-members'
+        liDiv.classList = 'event-members'
 
 
         //triggered by events
@@ -429,6 +423,10 @@ var MISSION_CREW = [];
             ul.remove()
             div.appendChild(h1)
           }
+
+          setTimeout(function() {
+            container.remove()
+          }, 2000)
         })
         liDiv.appendChild(selectCrewBtn)
 
@@ -440,9 +438,8 @@ var MISSION_CREW = [];
         ul.appendChild(li)
         
       })
-      
-      div.appendChild(closeButton)
-      div.appendChild(eventDescription)
+      eventDiv.appendChild(eventDescription)
+      div.appendChild(eventDiv)
       div.appendChild(ul)
       container.appendChild(div)
       document.body.appendChild(container)
