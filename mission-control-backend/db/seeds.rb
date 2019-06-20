@@ -2,6 +2,7 @@ Destination.delete_all
 Crew.delete_all
 
 
+
 # destinations = Destination.create([{name: "Moon", object_source:"/images_3D/Moon_1_3474.glb"}, 
 #     {name: "Mars", object_source: "/images_3D/Mars_1_6792.glb" }, {name: "Venus", object_source: "/images_3D/Venus_1_12103.glb"}, 
 #     {name: "Mercury",object_source:"/images_3D/Mercury_1_4878.glb"}, {name: "Jupiter", object_source:"/images_3D/Jupiter_1_142984.glb"}, 
