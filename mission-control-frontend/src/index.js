@@ -319,8 +319,9 @@ var MISSION_CREW = [];
       let deleteButton = document.createElement('button')
       liDiv.classList = "mission-members"
       li.classList = "crew-li"
-      deleteButton.textContent = "x"
+      deleteButton.textContent = "X"
       deleteButton.id = 'crew-delete'
+      deleteButton.classList = 'btn-danger'
       deleteButton.style = "max-width:20px;float:right; margin-right: 20px;"
       deleteButton.addEventListener('click', () => {
         handleCrewDelete(crew, li)
@@ -401,10 +402,10 @@ var MISSION_CREW = [];
       // console.log(MISSION_CREW)
       MISSION_CREW.forEach(crew => {
         let liDiv = document.createElement('div')
-        let h3 = document.createElement('h3')
+        let h4 = document.createElement('h4')
         let p = document.createElement('p')
         let li = document.createElement('li')
-        h3.textContent = crew.name
+        h4.textContent = crew.name
         liDiv.classList = 'mission-members'
 
 
@@ -433,7 +434,7 @@ var MISSION_CREW = [];
 
 
 
-        liDiv.appendChild(h3)
+        liDiv.appendChild(h4)
         liDiv.appendChild(p)
         li.appendChild(liDiv)
         ul.appendChild(li)
@@ -484,12 +485,12 @@ var MISSION_CREW = [];
 
 
       
-      let h3 = document.createElement('h3')
+      let h4 = document.createElement('h4')
       let p = document.createElement('p')
       let liDiv = document.createElement('div')
       
       liDiv.classList = "crew-members"
-      h3.textContent = "Name: " + crew.name
+      h4.textContent = "Name: " + crew.name
       //configures crew options before start
         p.textContent = "Skills: " + crew.skill + " Cost: $" + crew.cost
         addCrewMemberBtn = document.createElement('button')
@@ -501,7 +502,7 @@ var MISSION_CREW = [];
         })
         liDiv.appendChild(addCrewMemberBtn)
 
-      liDiv.appendChild(h3)
+      liDiv.appendChild(h4)
       liDiv.appendChild(p)
       li.appendChild(liDiv)
     }
