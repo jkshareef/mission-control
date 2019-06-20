@@ -8,6 +8,7 @@
     const URL = "http://localhost:3000/"
     let RETRY_EVENT = false
     let MISSION_HALT = false
+    let MISSION_COMPLETE = false
     let SPEEDS = {}
     
     function compare(a,b) {
@@ -521,13 +522,14 @@ var MISSION_CREW = [];
     setInterval( () => {
       let rand = events[Math.floor(Math.random() * events.length)];
       console.log(rand)
-      if (RETRY_EVENT != false) {
-        newEvent(RETRY_EVENT)
-      } else {
-        newEvent(rand)
+      if (MISSION_COMPLETE === false) {
+        if (RETRY_EVENT != false) {
+          newEvent(RETRY_EVENT)
+        } else {
+          newEvent(rand)
+        }
       }
     }, 30000)
-      
   }
 
 
@@ -652,6 +654,7 @@ var MISSION_CREW = [];
 
     function gameState(remainingDistance) {
       if (remainingDistance === 0) {
+        MISSION_COMPLETE = true
         let container = document.createElement("div")
         container.classList = "container-message"
 
