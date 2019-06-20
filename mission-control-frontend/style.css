@@ -521,6 +521,7 @@ i {
 }
 
 .mission-message {
+  color: white;
   position: relative;
   text-align: center;
   top: 45%;

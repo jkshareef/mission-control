@@ -201,7 +201,6 @@ var MISSION_CREW = [];
           FUNDING = FUNDING - 10000
           h1.textContent = "Total Funds: $" + FUNDING;
         } else {
-
         }
       })
 
@@ -219,7 +218,10 @@ var MISSION_CREW = [];
     function startGame() {
 
       setInterval(function () {
-        if(FUNDING <= 0){
+        if(FUNDING <= 0 && MISSION_COMPLETE != true){
+          let h1 = document.getElementById('funding')
+          h1.textContent = "Total Funds: $" + 0;
+
           o2Btn = document.getElementById('o2-btn').disabled = true;
           foodBtn = document.getElementById('food-btn').disabled = true;
           fuelBtn = document.getElementById('fuel-btn').disabled = true;
@@ -310,7 +312,7 @@ var MISSION_CREW = [];
     function postCrew(crew) {
       FUNDING = FUNDING - crew.cost
       h1 = document.getElementById('funding')
-      h1.textContent = FUNDING;
+      h1.textContent = "Total Funds: $" + FUNDING;
       let payload = { name: crew.name, skill: crew.skill, rating: crew.rating, cost: crew.cost, gender: crew.gender, mission_id: mission_id }
       let config = {
         method: 'POST',
@@ -425,6 +427,7 @@ var MISSION_CREW = [];
           let success = eventSuccess(crew, event)
           eventPenalty(success, crew, event)
           h1 = document.createElement('h1')
+          h1.style = "color: white; text-align: center;"
 
           if(success == false) {
             h1.textContent = `${crew.name} failed to successfully navigate the crisis!`
@@ -700,8 +703,8 @@ var MISSION_CREW = [];
       }
     }
 
-function gameFailed(FUNDING) {
-
+function gameFailed() {
+  console.log("Failed")
   let fuelBar = document.getElementById('fuel-stat')
   let fuelStat = parseInt(fuelBar.style.width)
 
@@ -714,7 +717,7 @@ function gameFailed(FUNDING) {
   let o2Bar = document.getElementById('o2-stat')
   let o2Stat = parseInt(o2Bar.style.width)
 
-  if (FUNDING === 0 && fuelStat > 0 && foodStat > 0 && medStat > 0 && o2Stat > 0) {
+  if (FUNDING <= 0 && fuelStat <= 0 && foodStat <= 0 && medStat <= 0 && o2Stat <= 0) {
     MISSION_COMPLETE = true
     let container = document.createElement("div")
     container.classList = "container-message"
