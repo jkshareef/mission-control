@@ -465,6 +465,21 @@ font-weight: 300;
   overflow-y: scroll;
 }
 
+.event-popup {
+  width: 800px;
+  height: 800px;
+  background: #1a1a1a;
+  opacity: 0.9;
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  padding: 5px 0 0;
+  overflow-y: scroll;
+}
+
 
 
 .add-crew {
@@ -495,6 +510,11 @@ background-color: gray;
 }
 
 .crew-ul {
+	list-style: none;
+}
+
+.event-ul {
+  margin-left: 110px;
 	list-style: none;
 }
 
@@ -542,6 +562,7 @@ i {
 }
 
 .mission-message {
+  color: white;
   position: relative;
   text-align: center;
   top: 45%;
@@ -615,6 +636,19 @@ body {
 width: 300px;
 background-color: gray;
 }
+
+.event-members {
+  
+	color: white;
+	border-style: solid;
+	border-color: lightblue;
+	height: 70px;
+	border-radius:10px;
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+width: 500px;
+background-color: gray;
+}
 .mission-members button {
   text-align: center;
  background-color: red;
@@ -635,4 +669,18 @@ ul {
 
 .crew-li {
   list-style: none;
+}
+
+
+.event-div {
+  background-color: gray;
+  margin: auto;
+  height: 200px;
+  width: 500px;
+      box-shadow: 10px 10px 29px -15px rgba(0,0,0,0.75);
+  	border-radius:10px;
+-moz-border-radius:10px;
+-webkit-border-radius:10px;
+  color: red;
+
 }
