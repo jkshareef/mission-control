@@ -466,9 +466,8 @@ i {
 
  .arrow-text-right {
   position: relative;
-  float: left;
-  left: 200px;
-  top: 170px;
+  text-align: center;
+  top: 14rem;
 }
 
 .arrow-text-left {
@@ -500,7 +499,7 @@ i {
 -webkit-border-radius:10px; */
 }
 
-.mission-end-message {
+.mission-message {
   position: relative;
   text-align: center;
   top: 45%;
