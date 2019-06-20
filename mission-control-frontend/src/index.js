@@ -59,7 +59,7 @@
 
   //random characters
 
-    const CREW = [{name: "Rhiannon Dade", skill: "Biology", gender: "female", rating: 99, cost: 48000},
+    const CREW = [{name: "Rhiannon Dade", skill: "Biologist", gender: "female", rating: 99, cost: 48000},
     {name: "Zhenwhei Yang", skill: "Physicist", gender: "female", rating: 82, cost: 40000},
     {name: "Kristof Jenner", skill: "Mechanic", gender: "male", rating: 79, cost: 32000},
     {name: "Yuri Kochalev", skill: "Navigator", gender: "male", rating: 92, cost: 58000},
@@ -560,9 +560,9 @@ var MISSION_CREW = [];
           if (remainingDistance >= rate) {
             remainingDistance = remainingDistance - rate
             h2.textContent = `${remainingDistance.toFixed(0)} Miles`
-          } else if (parseInt(remainingDistance.toFixed(0), 10) === 0) {
-            h2.textContent = `${parseInt(remainingDistance.toFixed(0), 10)} Miles`
+          } else {
             remainingDistance = 0
+            h2.textContent = `${parseInt(remainingDistance.toFixed(0), 10)} Miles`
             gameState(remainingDistance)
             clearInterval(distanceDown)
           }
