@@ -210,10 +210,62 @@ var MISSION_CREW = [];
     function configStart() {
       let startButton = document.getElementById('page-start')
       startButton.addEventListener('click', () => {
-        startButton.parentNode.parentNode.classList = "hidden"
-        postMission()
+          startButton.parentNode.parentNode.classList = "hidden"
+          postMission()
       })
     }
+
+    function startGame() {
+      btn = document.getElementById('start-game')
+      btn.addEventListener('click', () => {
+        let selectedDestination = document.getElementById('destination-header')
+        if (selectedDestination.textContent === "Earth") {
+          let container = document.createElement("div")
+          container.classList = "container-message"
+
+          let div = document.createElement('div')
+          let h3 = document.createElement('h3')
+          h3.classList = "mission-message"
+          h3.textContent = "You Must Pick a Destination Other Than Earth."
+
+          closeButton = document.createElement('button')
+          closeButton.textContent = "X"
+          closeButton.style = "float:left;"
+          closeButton.classList = "btn-danger"
+
+          container.addEventListener('click', () => {
+            container.remove()
+          })
+          closeButton.addEventListener('click', () => {
+            container.remove()
+          })
+        
+          div.classList = "message-popup"
+          div.appendChild(h3)
+          div.appendChild(closeButton)
+          container.appendChild(div)
+          document.body.appendChild(container)
+        } else if (missionStart === true ) {
+            return
+         } else {
+            div = document.getElementById('middle-panel')
+            div.style = "background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover; color:white;"
+            fetchCrew()
+            fetchEvents()
+            resourceDepleting()
+    
+            crewBtn = document.getElementById('add-crew')
+            crewBtn.remove();
+            crewDeleteButtons = document.querySelectorAll('#crew-delete')
+            crewDeleteButtons.forEach(btn => {
+              btn.remove();
+              
+            })
+            missionProgress();
+            missionStart = true
+          }
+        })
+      }
 
     function configDestination() {
       let nextBtn = document.getElementById('right-arrow-button')
@@ -293,15 +345,17 @@ var MISSION_CREW = [];
       closeButton.textContent = "X"
       closeButton.style = "float:left;"
       closeButton.classList = "btn-danger"
-      closeButton.addEventListener('click', () => {
-        closeButton.parentNode.parentNode.classList = "hidden"
-        closeButton.parentNode.parentNode.innerHTML = ""
-      })
-
 
       let div = document.createElement('div')
       let ul = document.createElement('ul')
       let li = document.createElement('li')
+
+      closeButton.addEventListener('click', () => {
+        container.remove()
+      })
+
+
+     
       
       div.classList = "crew-popup"
       ul.id = "crew-options"
@@ -319,7 +373,6 @@ var MISSION_CREW = [];
     }
 
     function newEvent(event) {
-      setInterval(function () {
       let container = document.createElement('div')
       container.id = "container-popup"
       container.classList.remove("hidden")
@@ -344,7 +397,7 @@ var MISSION_CREW = [];
         closeButton.parentNode.parentNode.classList = "hidden"
         closeButton.parentNode.parentNode.innerHTML = ""
       })
-      console.log(MISSION_CREW)
+      // console.log(MISSION_CREW)
       MISSION_CREW.forEach(crew => {
         let liDiv = document.createElement('div')
         let h3 = document.createElement('h3')
@@ -391,14 +444,18 @@ var MISSION_CREW = [];
       div.appendChild(ul)
       container.appendChild(div)
       document.body.appendChild(container)
-    }, 30000)
     }
+
     function eventPenalty(success, crew, event) {
         let evResource = event.target_resource
         if (success == true) {
           console.log(crew.name + " successfully navigated the crisis")
+          if (RETRY_EVENT != false) {
+            RETRY_EVENT = false
+            MISSION_HALT = false
+          }
         } else {
-          if(evResource != nil && evResource != "all") {
+          if(evResource != null && evResource != "all") {
             console.log(crew.name + " failed to successfully navigate")
             let bar = document.getElementById(`${evResource}-stat`)
             let stat = parseInt(bar.style.width)
@@ -413,11 +470,9 @@ var MISSION_CREW = [];
               bar.style.width = stat + "%";
             })
 
-          } else {
+          } else if (evResource === null) {
             RETRY_EVENT = event
             MISSION_HALT = true
-
-
           }
 
 
@@ -451,31 +506,7 @@ var MISSION_CREW = [];
     }
       
 
-    function startGame() {
-      btn = document.getElementById('start-game')
-      btn.addEventListener('click', () => {
-        div = document.getElementById('middle-panel')
-        div.style = "background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover;;color:white;"
-        fetchCrew()
-        fetchEvents()
-        resourceDepleting()
-
-        crewBtn = document.getElementById('add-crew')
-        crewBtn.remove();
-        crewDeleteButtons = document.querySelectorAll('#crew-delete')
-        crewDeleteButtons.forEach(btn => {
-          btn.remove();
-          
-        })
-        missionProgress();
-        missionStart = true
-       
-
-      })
-      
-      
-      
-    }
+    
 
 
   function fetchEvents() {
@@ -487,10 +518,16 @@ var MISSION_CREW = [];
 }
 
   function buildEvents(events) {
-    setInterval
+    setInterval( () => {
       let rand = events[Math.floor(Math.random() * events.length)];
       console.log(rand)
-      newEvent(rand);
+      if (RETRY_EVENT != false) {
+        newEvent(RETRY_EVENT)
+      } else {
+        newEvent(rand)
+      }
+    }, 30000)
+      
   }
 
 
@@ -620,7 +657,7 @@ var MISSION_CREW = [];
 
         let div = document.createElement('div')
         let h3 = document.createElement('h3')
-        h3.classList = "mission-end-message"
+        h3.classList = "mission-message"
         h3.textContent = "Your Crew Has Reached The Destination!"
         
         
