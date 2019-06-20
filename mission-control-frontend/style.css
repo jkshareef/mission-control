@@ -432,10 +432,11 @@ img {
 }
 
 .crew-members {
+  list-style: none;
 	color: white;
 	border-style: solid;
 	border-color: lightblue;
-	height: 100px;
+	height: 90px;
 	border-radius:10px;
 -moz-border-radius:10px;
 -webkit-border-radius:10px;
@@ -558,18 +559,27 @@ box-shadow: 6px 10px 29px 27px rgba(0,0,0,0.22);
 
 body {
   background-color: darkgray;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .mission-members {
+  
 	color: white;
 	border-style: solid;
 	border-color: lightblue;
-	height: 100px;
+	height: 70px;
 	border-radius:10px;
 -moz-border-radius:10px;
 -webkit-border-radius:10px;
-width: 100%;
+width: 300px;
 background-color: gray;
+}
+.mission-members button {
+  text-align: center;
+ background-color: red;
+}
+.mission-members p {
+  float: left;
 }
 
 ul {
@@ -580,4 +590,8 @@ ul {
   color: red;
   font-family: 'Courier New', Courier, monospace;
   text-align: center;
+}
+
+.crew-li {
+  list-style: none;
 }
