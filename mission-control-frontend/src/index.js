@@ -6,7 +6,9 @@
 
   //celestial bodies
     const URL = "http://localhost:3000/"
-    let speeds = {}
+    let RETRY_EVENT = false
+    let MISSION_HALT = false
+    let SPEEDS = {}
     
     function compare(a,b) {
       if (a.distance < b.distance) {
@@ -22,7 +24,7 @@
       let rate = 0.001
       BODIES.sort(compare)
       BODIES.forEach((body) => {
-        speeds[body.name] = rate
+        SPEEDS[body.name] = rate
         rate = rate / 1.25
       })
     }
@@ -353,7 +355,7 @@ var MISSION_CREW = [];
 
 
         //triggered by events
-        p.textContent = "Skills: " + crew.skill
+        p.textContent = "Skill: " + crew.skill
         selectCrewBtn = document.createElement('button')
         selectCrewBtn.textContent = "Assign Member"
         selectCrewBtn.classList = "add-crew btn btn-primary"
@@ -389,19 +391,36 @@ var MISSION_CREW = [];
       div.appendChild(ul)
       container.appendChild(div)
       document.body.appendChild(container)
-    }, 10000)
+    }, 30000)
     }
     function eventPenalty(success, crew, event) {
+        let evResource = event.target_resource
         if (success == true) {
           console.log(crew.name + " successfully navigated the crisis")
         } else {
-          if(event.target_resource == 'fuel') {
+          if(evResource != nil && evResource != "all") {
             console.log(crew.name + " failed to successfully navigate")
-            let fuelBar = document.getElementById('fuel-stat')
-            fuelStat = parseInt(fuelBar.style.width)
-            fuelStat = fuelStat - 50;
-            fuelBar.style.width = fuelStat + "%";
+            let bar = document.getElementById(`${evResource}-stat`)
+            let stat = parseInt(bar.style.width)
+            stat = stat - event.resource_cost;
+            bar.style.width = stat + "%";
+          } else if (evResource === "all") {
+            let resources = ["fuel", "med", "food", "o2"]
+            resources.forEach((resource) => {
+              let bar = document.getElementById(`${resource}-stat`)
+              let stat = parseInt(bar.style.width)
+              stat = stat - event.resource_cost;
+              bar.style.width = stat + "%";
+            })
+
+          } else {
+            RETRY_EVENT = event
+            MISSION_HALT = true
+
+
           }
+
+
         }
     }
 
@@ -468,6 +487,7 @@ var MISSION_CREW = [];
 }
 
   function buildEvents(events) {
+    setInterval
       let rand = events[Math.floor(Math.random() * events.length)];
       console.log(rand)
       newEvent(rand);
@@ -482,7 +502,7 @@ var MISSION_CREW = [];
 
       div.appendChild(h2)
 
-      const rate = destination.distance * speeds[destination.name]
+      const rate = destination.distance * SPEEDS[destination.name]
       let remainingDistance = destination.distance
       
      
@@ -499,7 +519,7 @@ var MISSION_CREW = [];
         let o2Bar = document.getElementById('o2-stat')
         let o2Stat = parseInt(o2Bar.style.width)
 
-        if (fuelStat > 0 && foodStat > 0 && medStat > 0 && o2Stat > 0 ) {
+        if (fuelStat > 0 && foodStat > 0 && medStat > 0 && o2Stat > 0 && MISSION_HALT === false) {
           if (remainingDistance >= rate) {
             remainingDistance = remainingDistance - rate
             h2.textContent = `${remainingDistance.toFixed(0)} Miles`
