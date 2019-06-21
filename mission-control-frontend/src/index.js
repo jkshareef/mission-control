@@ -11,7 +11,7 @@
     let MISSION_COMPLETE = false
     let SPEEDS = {}
     let MOCK1 = ['The new person is awesome', 'What a champ', 'This person is the best', 
-    'We need to hire more people like them', 'I literally love them', 'This person is amazing', 'I genuinely think I am in love with them',]
+    'We need to hire more people like them','Great job',  'I literally love them', 'This person is amazing', 'I genuinely think I am in love with them',]
     let MOCK2 = ['Does this person know what he is doing??', 'What an idiot', 'Who the hell is the new person', 
     'I knew they should not have hired them', 
     'This is getting ridiculous', 'WHAT IS HAPPENING??', 'Are we gonna crash?', 'What a waste of resources',
