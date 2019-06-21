@@ -56,10 +56,13 @@ grid-row-gap: 13px;
 
 #event-console-content {
   color: red;
+  font-size: 1.8rem;
+  text-align: center;
 }
 
 #event-console-select {
-  font-weight: 300;
+  font-weight: 600;
+  margin-top: 20px;
 }
 
 

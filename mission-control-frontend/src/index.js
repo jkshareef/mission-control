@@ -6,13 +6,13 @@
 
   //celestial bodies
     const URL = "http://localhost:3000/"
-    let RETRY_EVENT = false
     let MISSION_HALT = false
     let MISSION_COMPLETE = false
-    let MISSION_SUCCESS = false
+    let EVENT_SUCCESS = false
     let SPEEDS = {}
     let MONITOR_PANEL = ["./src/images/SciFi-screen-LITEN-PNG-1-48.gif", "./src/images/RaggedTangibleJerboa-max-1mb.gif",
   "./src/images/ui.gif"]
+    let EVENT_TIMING = [18000, 22000, 30000]   
     
     function compare(a,b) {
       if (a.distance < b.distance) {
@@ -77,7 +77,7 @@
     {name: "Arlene McKinney", skill: "Mechanic", gender: "female", rating: 62, cost: 20000},
     {name: "Ken Blevins", skill: "Mechanic", gender: "male", rating: 73, cost: 32000}]
 
-var FUNDING = 1000000;
+var FUNDING = 10000000000;
 var MISSION_CREW = [];
 
 
@@ -286,7 +286,7 @@ var MISSION_CREW = [];
             return
          } else {
             div = document.getElementById('middle-panel')
-            div.style = "background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover; color:white;"
+            div.style = "background-image: url(./src/images/space-travel.gif); no-repeat fixed;background-size: 100% 100%; color:white;"
             fetchCrew()
             fetchEvents()
             resourceDepleting()
@@ -411,6 +411,7 @@ var MISSION_CREW = [];
     }
 
     function newEvent(event) {
+      EVENT_SUCCESS = false
       let container = document.createElement('div')
       container.id = "container-popup"
       container.classList.remove("hidden")
@@ -480,20 +481,23 @@ var MISSION_CREW = [];
       timerDiv.classList = "event-timer"
       timerDiv.textContent = "Time Until Imminent Failure: "
       let countSpan = document.createElement('span')
-      countSpan.textContent = 30
+      countSpan.textContent = 10
       timerDiv.appendChild(countSpan)
 
 
         let countdown = setInterval(() => {
-          if (countSpan.textContent > 0 && MISSION_SUCCESS === false) {
+          if (countSpan.textContent > 0 && EVENT_SUCCESS === false) {
             countSpan.textContent -= 1
+          } else if (countSpan.textContent === 0 && EVENT_SUCCESS === true) {
+            eventPenalty(true, null, event, h1, div, container)
+            clearInterval(countdown)
           } else {
-            eventPenalty(false, null, event, h1, div)
+            eventPenalty(false, null, event, h1, div, container)
             clearInterval(countdown)
           }
         }, 1000)
       
-      div.appendChild(closeButton)
+      // div.appendChild(closeButton)
 
 
       eventDiv.appendChild(eventDescription)
@@ -506,24 +510,34 @@ var MISSION_CREW = [];
       document.body.appendChild(container)
     }
 
-    function eventPenalty(success, crew=null, event, h1=null, div=null) {
+  
+
+    function eventPenalty(success, crew=null, event, h1=null, div=null, container=null) {
+        let ul = getElementById('crew-options')
         let evResource = event.target_resource
+        let eventMonitor = document.createElement('p')
+        eventMonitor.classList = 'event-console-content'
+
+        let parent = document.getElementById('event-console')
+        parent.appendChild(eventMonitor)
+        
         
         if (success == true) {
           if (event.repeat) {
-            let eventMonitor = document.getElementById('event-console-content')
             eventMonitor.textContent = "All Systems Nominal"
             eventMonitor.style.color = "green"
-          }
-          console.log(crew.name + " successfully navigated the crisis")
-          if (RETRY_EVENT != false) {
-            RETRY_EVENT = false
             MISSION_HALT = false
           }
+          console.log(crew.name + " successfully navigated the crisis")
         } else {
           if (crew === null) {
+            ul.remove()
             h1.textContent = `You failed to successfully navigate the crisis in time!`
             div.appendChild(h1)
+
+            setTimeout(function() {
+            container.remove()
+            }, 2000)
           }
           if(evResource != "all" && evResource != null) {
             let bar = document.getElementById(`${evResource}-stat`)
@@ -540,15 +554,18 @@ var MISSION_CREW = [];
             })
 
           } else if (event.repeat) {
-            RETRY_EVENT = event
             MISSION_HALT = true
-            let eventMonitor = document.getElementById('event-console-content')
+            
             eventMonitor.textContent = `Failed Event: ${event.content}`
-            let eventSpan = document.createElement('span')
-            eventSpan.id = "event-console-select"
-            eventSpan.textContent = "SELECT TO TRY AGAIN"
-
-            eventMonitor.appendChild(eventSpan)
+            let eventDiv = document.createElement('div')
+            eventDiv.id = "event-console-select"
+            eventDiv.textContent = "SELECT TO TRY AGAIN"
+            eventDiv.addEventListener('click', () => {
+              newEvent(event)
+              eventDiv.remove()
+            })
+            
+            eventMonitor.appendChild(eventDiv)
             eventMonitor.style.color = "red"
           }
 
@@ -595,13 +612,19 @@ var MISSION_CREW = [];
 }
 
   function buildEvents(events) {
-    setInterval( () => {
-      let rand = events[Math.floor(Math.random() * events.length)];
-      console.log(rand)
-      if (MISSION_COMPLETE === false) {
-          newEvent(rand)
-      }
-    }, 30000)
+    let rand = EVENT_TIMING[Math.floor(Math.random() * EVENT_TIMING.length)];
+    setTimeout( () => {
+      setInterval( () => {
+        let rand = events[Math.floor(Math.random() * events.length)];
+        console.log(rand)
+        if (MISSION_COMPLETE === false) {
+            newEvent(rand)
+        }
+      }, rand)
+    }, rand)
+    
+   
+
   }
 
 
@@ -689,26 +712,26 @@ var MISSION_CREW = [];
 
     function eventSuccess(crew, event) {
       let success = false
-      MISSION_SUCCESS = false
+      EVENT_SUCCESS = false
           let bonus = 0
           if(crew.skill == event.skill) {
             bonus = 100
             if (bonus >= event.threshold) {
               success = true;
-              MISSION_SUCCESS = true
+              EVENT_SUCCESS = true
             } else {
               let threshold = event.threshold - bonus
               threshold -= crew.rating
               if (threshold <= 0) {
                 success = true
-                MISSION_SUCCESS = true
+                EVENT_SUCCESS = true
               } else {
                 let thresholdArray =  [...Array(threshold).keys()]
                 for (let i=0; i < crew.rating; i++){
                   let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
                   if (rand === thresholdArray[0]) {
                     success = true
-                    MISSION_SUCCESS = true
+                    EVENT_SUCCESS = true
                   }
                 }
               }
@@ -721,7 +744,7 @@ var MISSION_CREW = [];
               let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
               if (rand === thresholdArray[0]) {
                 success = true
-                MISSION_SUCCESS = true
+                EVENT_SUCCESS = true
               }
 
             }
@@ -817,6 +840,9 @@ function gameFailed() {
     document.body.appendChild(container)
   }
 }
+
+
+
 
 
     
