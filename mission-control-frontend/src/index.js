@@ -10,11 +10,12 @@
     let MISSION_HALT = false
     let MISSION_COMPLETE = false
     let SPEEDS = {}
-    let MOCK1 = ['The new guy is awesome', 'What a champ', 'This guy is the best', 
-    'We need to hire more people like him']
-    let MOCK2 = ['Does this guy know what he is doing??', 'What an idiot', 'Who the hell is the new guy', 
-    'I knew they should not have hired him', 
-    'This is getting ridiculous']
+    let MOCK1 = ['The new person is awesome', 'What a champ', 'This person is the best', 
+    'We need to hire more people like them', 'I literally love them', 'This person is amazing', 'I genuinely think I am in love with them', 'G']
+    let MOCK2 = ['Does this person know what he is doing??', 'What an idiot', 'Who the hell is the new person', 
+    'I knew they should not have hired them', 
+    'This is getting ridiculous', 'WHAT IS HAPPENDING??', 'Are we gonna crash?', 'What a waste of resources',
+     'what a waste of life', 'Hes a idiot', 'I cannot anymore', 'What is with this guy']
     
     function compare(a,b) {
       if (a.distance < b.distance) {
@@ -270,7 +271,7 @@ var MISSION_CREW = [];
             return
          } else {
             div = document.getElementById('middle-panel')
-            div.style = "background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover; color:white;"
+            div.style = "text-align:center;background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover; color:white;"
             fetchCrew()
             fetchEvents()
             resourceDepleting()
@@ -566,10 +567,12 @@ var MISSION_CREW = [];
     function missionProgress() {
       let div = document.getElementById('middle-panel')
       let h2 = document.createElement('h2')
+      let progress = document.createElement('progress')
 
-      h2.textContent = `${destination.distance} Miles`
+      h2.textContent = `${destination.distance} Miles Remaining`
 
       div.appendChild(h2)
+      div.appendChild(progress)
 
       const rate = destination.distance * SPEEDS[destination.name]
       let remainingDistance = destination.distance
@@ -592,13 +595,20 @@ var MISSION_CREW = [];
           if (remainingDistance >= rate) {
             remainingDistance = remainingDistance - rate
             h2.textContent = `${remainingDistance.toFixed(0)} Miles`
+            percentageComplete = (remainingDistance / destination.distance) * 100
+            progress.value = percentageComplete
+            progress.max = 100
+
           } else {
             remainingDistance = 0
             h2.textContent = `${parseInt(remainingDistance.toFixed(0), 10)} Miles`
             gameState(remainingDistance)
             clearInterval(distanceDown)
+            percentageComplete = (remainingDistance / 100)
+            progress.value = percentageComplete
           }
         }
+        
       }, 100)
       
       
