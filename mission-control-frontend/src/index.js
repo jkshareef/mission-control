@@ -15,7 +15,7 @@
     let MOCK2 = ['Does this person know what he is doing??', 'What an idiot', 'Who the hell is the new person', 
     'I knew they should not have hired them', 
     'This is getting ridiculous', 'WHAT IS HAPPENING??', 'Are we gonna crash?', 'What a waste of resources',
-     'what a waste of life', 'Hes a idiot', 'I cannot anymore', 'What is with this guy']
+     'what a waste of life', 'Hes a idiot', 'I cannot anymore', 'What is with this guy', 'They need to get fired']
     
     function compare(a,b) {
       if (a.distance < b.distance) {
