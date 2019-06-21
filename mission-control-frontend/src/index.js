@@ -11,10 +11,10 @@
     let MISSION_COMPLETE = false
     let SPEEDS = {}
     let MOCK1 = ['The new person is awesome', 'What a champ', 'This person is the best', 
-    'We need to hire more people like them', 'I literally love them', 'This person is amazing', 'I genuinely think I am in love with them', 'G']
+    'We need to hire more people like them', 'I literally love them', 'This person is amazing', 'I genuinely think I am in love with them',]
     let MOCK2 = ['Does this person know what he is doing??', 'What an idiot', 'Who the hell is the new person', 
     'I knew they should not have hired them', 
-    'This is getting ridiculous', 'WHAT IS HAPPENDING??', 'Are we gonna crash?', 'What a waste of resources',
+    'This is getting ridiculous', 'WHAT IS HAPPENING??', 'Are we gonna crash?', 'What a waste of resources',
      'what a waste of life', 'Hes a idiot', 'I cannot anymore', 'What is with this guy']
     
     function compare(a,b) {
@@ -238,12 +238,12 @@ var MISSION_CREW = [];
 
       btn = document.getElementById('start-game')
       btn.addEventListener('click', () => {
-        let instructions = document.getElementById('instructions');
-        instructions.remove();
+       
         let selectedDestination = document.getElementById('destination-header')
         if (selectedDestination.textContent === "Earth") {
           let container = document.createElement("div")
           container.classList = "container-message"
+          
 
           let div = document.createElement('div')
           let h3 = document.createElement('h3')
@@ -270,6 +270,8 @@ var MISSION_CREW = [];
         } else if (missionStart === true ) {
             return
          } else {
+          let instructions = document.getElementById('instructions');
+          instructions.remove();
             div = document.getElementById('middle-panel')
             div.style = "text-align:center;background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover; color:white;"
             fetchCrew()
