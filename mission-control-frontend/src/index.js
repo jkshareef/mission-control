@@ -10,6 +10,11 @@
     let MISSION_HALT = false
     let MISSION_COMPLETE = false
     let SPEEDS = {}
+    let MOCK1 = ['The new guy is awesome', 'What a champ', 'This guy is the best', 
+    'We need to hire more people like him']
+    let MOCK2 = ['Does this guy know what he is doing??', 'What an idiot', 'Who the hell is the new guy', 
+    'I knew they should not have hired him', 
+    'This is getting ridiculous']
     
     function compare(a,b) {
       if (a.distance < b.distance) {
@@ -216,7 +221,6 @@ var MISSION_CREW = [];
     }
 
     function startGame() {
-
       setInterval(function () {
         if(FUNDING <= 0 && MISSION_COMPLETE != true){
           let h1 = document.getElementById('funding')
@@ -430,10 +434,15 @@ var MISSION_CREW = [];
           h1.style = "color: white; text-align: center;"
 
           if(success == false) {
+           
             h1.textContent = `${crew.name} failed to successfully navigate the crisis!`
             ul.remove()
             div.appendChild(h1)
+              
           } else {
+            
+    
+
             h1.textContent = `${crew.name} succeeded!`
             ul.remove()
             div.appendChild(h1)
@@ -442,6 +451,13 @@ var MISSION_CREW = [];
           setTimeout(function() {
             container.remove()
           }, 2000)
+          mockary(success)
+          setTimeout(function () {
+            cCom = document.getElementById('cCom')
+            jCom = document.getElementById('jCom')
+            jCom.remove()
+            cCom.remove()
+          }, 6000)
         })
         liDiv.appendChild(selectCrewBtn)
 
@@ -464,6 +480,7 @@ var MISSION_CREW = [];
         let evResource = event.target_resource
         if (success == true) {
           console.log(crew.name + " successfully navigated the crisis")
+      
           if (RETRY_EVENT != false) {
             RETRY_EVENT = false
             MISSION_HALT = false
@@ -755,10 +772,48 @@ function gameFailed() {
 }
 
 
-    
+function mockary(success) {
+ 
+  main = document.querySelector('main')
+  cComDiv = document.createElement('div')
+  cComDiv.id = "cCom"
+  cCommentDiv = document.createElement('div')
+  cCommentDiv.classList = "ccomment-text"
+  cimg = document.createElement('img')
+  cimg.src = "./src/images/reversecomment.png"
+  cimg.classList = "ccomment"
+  cComDiv.appendChild(cimg)
+  cComDiv.appendChild(cCommentDiv)
+  main.appendChild(cComDiv)
+  
+  setTimeout(function () {
+    jComDiv = document.createElement('div')
+    jComDiv.id = "jCom"
+    jCommentDiv = document.createElement('div')
+    jCommentDiv.classList = "jcomment-text"
+    jimg = document.createElement('img')
+    jimg.src = "./src/images/comments.png"
+    jimg.classList = "jcomment"
+    jComDiv.appendChild(jimg)
+    jComDiv.appendChild(jCommentDiv)
+    main.appendChild(jComDiv)
 
-    
-    
+      if (success == true) {
+        let rand1 = MOCK1[Math.floor(Math.random() * MOCK1.length)];
+        let rand2 = MOCK1[Math.floor(Math.random() * MOCK1.length)];
+        cCommentDiv.textContent = rand1
+        jCommentDiv.textContent = rand2
+
+
+      } else {
+        let rand1 = MOCK2[Math.floor(Math.random() * MOCK2.length)];
+        let rand2 = MOCK2[Math.floor(Math.random() * MOCK2.length)];
+
+        cCommentDiv.textContent = rand1
+        jCommentDiv.textContent = rand2
+      }
+  }, 2000)
+}
 
 
 

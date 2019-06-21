@@ -136,16 +136,6 @@ grid-row-gap: 13px;
   top: 20rem;
 }
 
-.btn-start {
-  position: relative;
-  top: 35px;
-  left: 10%;
-  border-radius: 30%;
-  height: 60px;
-  background-color: red;
-  color: white;
-
-}
 
 
 .med-bar{
@@ -555,28 +545,34 @@ i {
 -webkit-border-radius:10px;
 }
 
-.keyboard {
-  background-image: url("src/images/keyboard.png");
-  /* background-size: 150px; */
-  background-position: center;
-  width: 100%;
-  height: 200px;
+.keyboard button {
+  position: absolute;
+  top: 87%;
+  left: 20%;
+  transform: translate(-70%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+    border-radius: 30%;
+  height: 40px;
+  background-color: red;
+  border-color: black;
   
 }
 
 .keyboard img {
-  margin-left: 670px;
-  margin-top: 100px;
+  /* margin-left: 670px; */
+  /* margin-top: 100px; */
   width: 625px;
 }
 
-/* main {
+main {
    transform: scale(0.850);
-   transform-origin: 0 0;
-   position: absolute;
-margin-left: 100px;
-box-shadow: 6px 10px 29px 27px rgba(0,0,0,0.22);
-} */
+  width: 100%;
+}
 
 body {
   background-color: darkgray;
@@ -643,3 +639,62 @@ ul {
   color: red;
 
 }
+
+.jcomment {
+position: absolute;
+    top: 35%;
+    left: 24%;
+    width: 150px;
+    height: 150px;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    border-radius: 30%;
+    border-color: black;
+
+}
+
+.ccomment {
+position: absolute;
+    top: 35%;
+    left: 76%;
+    width: 150px;
+    height: 150px;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    border-radius: 30%;
+    border-color: black;
+
+}
+
+
+.ccomment-text {
+           position: absolute;
+    z-index: 999;
+    /* margin: 0 auto; */
+    top: 30.5%;
+    left: 73%;
+    text-align: center;
+    max-width: 100px;
+}
+
+.jcomment-text {
+       position: absolute;
+      z-index: 999;
+      margin: 0 auto;
+      top: 31.5%;
+      text-align: center;
+    /* width: 60%; */
+    left: 21%;
+    max-width: 100px;
+}
+
+
+
