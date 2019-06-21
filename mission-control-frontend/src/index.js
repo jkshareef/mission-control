@@ -5,11 +5,15 @@
 // require('three/examples/js/loaders/GLTFLoader');
 
   //celestial bodies
-    const URL = "http://localhost:3000/"
-    let RETRY_EVENT = false
-    let MISSION_HALT = false
-    let MISSION_COMPLETE = false
-    let SPEEDS = {}
+  const URL = "http://localhost:3000/"
+  let MISSION_HALT = false
+  let MISSION_COMPLETE = false
+  let EVENT_SUCCESS = false
+  let SPEEDS = {}
+  let MONITOR_PANEL = ["./src/images/SciFi-screen-LITEN-PNG-1-48.gif", "./src/images/RaggedTangibleJerboa-max-1mb.gif",
+  "./src/images/ui.gif"]
+let EVENT_TIMING = [18000, 22000, 30000]  
+
     let MOCK1 = ['The new person is awesome', 'What a champ', 'This person is the best', 
     'We need to hire more people like them','Great job',  'I literally love them', 'This person is amazing', 'I genuinely think I am in love with them',]
     let MOCK2 = ['Does this person know what he is doing??', 'What an idiot', 'Who the hell is the new person', 
@@ -222,6 +226,22 @@ var MISSION_CREW = [];
     }
 
     function startGame() {
+
+      let rand = MONITOR_PANEL[Math.floor(Math.random() * MONITOR_PANEL.length)];
+      let monitor = document.getElementById("personal-monitor-div")
+      monitor.style = `background-image: url(${rand}); background-repeat: no-repeat; background-size: 100% 100%;`
+
+     
+
+
+
+      setInterval(() => {
+        let nextRand = MONITOR_PANEL[Math.floor(Math.random() * MONITOR_PANEL.length)]
+        monitor.style = `background-image: url(${nextRand}); background-repeat: no-repeat; background-size: 100% 100%;`
+
+      }, 10000)
+
+
       setInterval(function () {
         if(FUNDING <= 0 && MISSION_COMPLETE != true){
           let h1 = document.getElementById('funding')
@@ -273,7 +293,7 @@ var MISSION_CREW = [];
           let instructions = document.getElementById('instructions');
           instructions.remove();
             div = document.getElementById('middle-panel')
-            div.style = "text-align:center;background-image: url(./src/images/spaceship.gif); no-repeat fixed;background-size: cover; color:white;"
+            div.style = "text-align:center;background-image: url(./src/images/space-travel.gif); fixed: no-repeat fixed;background-position:center; background-size: 100% 100%;color:white;"
             fetchCrew()
             fetchEvents()
             resourceDepleting()
@@ -397,121 +417,169 @@ var MISSION_CREW = [];
       
     }
 
-    function newEvent(event) {
-      let container = document.createElement('div')
-      container.id = "container-popup"
-      container.classList.remove("hidden")
-      let div = document.createElement('div')
-      eventDiv = document.createElement('div')
-      eventDiv.classList = 'event-div'
-      eventDescription = document.createElement('h3')
-      eventDescription.textContent = event.content
-      eventDescription.classList = 'event-desc'
-
-      div.classList = "event-popup"
-      let ul = document.createElement('ul')
+function newEvent(event) {
+  EVENT_SUCCESS = false
+  let container = document.createElement('div')
+  container.id = "container-popup"
+  container.classList.remove("hidden")
+  let div = document.createElement('div')
+  let eventDiv = document.createElement('div')
+  eventDiv.classList = 'event-div'
+  eventDescription = document.createElement('h3')
+  eventDescription.textContent = event.content
+  eventDescription.classList = 'event-desc'
 
 
-      ul.id = "crew-options"
-      ul.classList = "event-ul"
-
-      MISSION_CREW.forEach(crew => {
-        let liDiv = document.createElement('div')
-        let h4 = document.createElement('h4')
-        let p = document.createElement('p')
-        let li = document.createElement('li')
-        h4.textContent = crew.name
-        liDiv.classList = 'event-members'
+  div.classList = "event-popup"
+  let ul = document.createElement('ul')
 
 
-        //triggered by events
-        p.textContent = "Skill: " + crew.skill
-        selectCrewBtn = document.createElement('button')
-        selectCrewBtn.textContent = "Assign Member"
-        selectCrewBtn.classList = "add-crew btn btn-primary"
+  ul.id = "crew-options"
+  ul.classList = "event-ul"
 
-        selectCrewBtn.addEventListener('click', () => {
-          let success = eventSuccess(crew, event)
-          eventPenalty(success, crew, event)
-          h1 = document.createElement('h1')
-          h1.style = "color: white; text-align: center;"
-
-          if(success == false) {
-           
-            h1.textContent = `${crew.name} failed to successfully navigate the crisis!`
-            ul.remove()
-            div.appendChild(h1)
-              
-          } else {
-            
-    
-
-            h1.textContent = `${crew.name} succeeded!`
-            ul.remove()
-            div.appendChild(h1)
-          }
-
-          setTimeout(function() {
-            container.remove()
-          }, 2000)
-          mockary(success)
-          setTimeout(function () {
-            cCom = document.getElementById('cCom')
-            jCom = document.getElementById('jCom')
-            jCom.remove()
-            cCom.remove()
-          }, 6000)
-        })
-        liDiv.appendChild(selectCrewBtn)
+  MISSION_CREW.forEach(crew => {
+    let liDiv = document.createElement('div')
+    let h4 = document.createElement('h4')
+    let p = document.createElement('p')
+    let li = document.createElement('li')
+    h4.textContent = crew.name
+    liDiv.classList = 'event-members'
 
 
+    //triggered by events
+    p.textContent = "Skill: " + crew.skill
+    selectCrewBtn = document.createElement('button')
+    selectCrewBtn.textContent = "Assign Member"
+    selectCrewBtn.classList = "add-crew btn btn-primary"
 
-        liDiv.appendChild(h4)
-        liDiv.appendChild(p)
-        li.appendChild(liDiv)
-        ul.appendChild(li)
+    selectCrewBtn.addEventListener('click', () => {
+      let success = eventSuccess(crew, event)
+      eventPenalty(success, crew, event)
+      h1 = document.createElement('h1')
+      h1.style = "color: white; text-align: center;"
+
+      if (success == false) {
+        h1.textContent = `${crew.name} failed to successfully navigate the crisis!`
+        ul.remove()
+        div.appendChild(h1)
+      } else {
+        h1.textContent = `${crew.name} succeeded!`
+        ul.remove()
+        div.appendChild(h1)
+      }
+
+      setTimeout(function () {
         
+        container.remove()
+        mockary(success)
+        
+      }, 2000)
+
+     
+
+    })
+    liDiv.appendChild(selectCrewBtn)
+
+
+
+    liDiv.appendChild(h4)
+    liDiv.appendChild(p)
+    li.appendChild(liDiv)
+    ul.appendChild(li)
+
+  })
+
+
+  let timerDiv = document.createElement('div')
+  timerDiv.classList = "event-timer"
+  timerDiv.textContent = "Time Until Imminent Failure: "
+  let countSpan = document.createElement('span')
+  countSpan.textContent = 10
+  timerDiv.appendChild(countSpan)
+
+
+  let countdown = setInterval(() => {
+    if (countSpan.textContent > 0 && EVENT_SUCCESS === false) {
+      countSpan.textContent -= 1
+    // } else if (countSpan.textContent === 0) {
+    //   eventPenalty(false, null, event, h1, div, container)
+    //   clearInterval(countdown)
+    } else {
+      clearInterval(countdown)
+    }
+  }, 1000)
+
+  // div.appendChild(closeButton)
+
+
+  eventDiv.appendChild(eventDescription)
+  div.appendChild(eventDiv)
+
+  div.appendChild(ul)
+
+  container.appendChild(div)
+  container.appendChild(timerDiv)
+  document.body.appendChild(container)
+}
+
+function eventPenalty(success, crew = null, event, h1 = null, div = null, container = null) {
+
+  let evResource = event.target_resource
+  let eventMonitor = document.createElement('p')
+  eventMonitor.classList = 'event-console-content'
+
+  let parent = document.getElementById('event-console')
+  parent.appendChild(eventMonitor)
+
+
+  if (success == true) {
+    if (event.repeat) {
+      eventMonitor.textContent = "All Systems Nominal"
+      eventMonitor.style.color = "green"
+      MISSION_HALT = false
+    }
+    console.log(crew.name + " successfully navigated the crisis")
+  } else {
+    if (crew === null) {
+      h1.textContent = `You failed to successfully navigate the crisis in time!`
+      div.appendChild(h1)
+
+      setTimeout(function () {
+        container.remove()
+      }, 2000)
+    }
+    if (evResource != "all" && evResource != null) {
+      let bar = document.getElementById(`${evResource}-stat`)
+      let stat = parseInt(bar.style.width)
+      stat = stat - event.resource_cost;
+      bar.style.width = stat + "%";
+    } else if (evResource === "all") {
+      let resources = ["fuel", "med", "food", "o2"]
+      resources.forEach((resource) => {
+        let bar = document.getElementById(`${resource}-stat`)
+        let stat = parseInt(bar.style.width)
+        stat = stat - event.resource_cost;
+        bar.style.width = stat + "%";
       })
-      eventDiv.appendChild(eventDescription)
-      div.appendChild(eventDiv)
-      div.appendChild(ul)
-      container.appendChild(div)
-      document.body.appendChild(container)
+
+    } else if (event.repeat) {
+      MISSION_HALT = true
+
+      eventMonitor.textContent = `Failed Event: ${event.content}`
+      let eventDiv = document.createElement('div')
+      eventDiv.id = "event-console-select"
+      eventDiv.textContent = "SELECT TO TRY AGAIN"
+      eventDiv.addEventListener('click', () => {
+        newEvent(event)
+        eventDiv.remove()
+      })
+
+      eventMonitor.appendChild(eventDiv)
+      eventMonitor.style.color = "red"
     }
 
-    function eventPenalty(success, crew, event) {
-        let evResource = event.target_resource
-        if (success == true) {
-          console.log(crew.name + " successfully navigated the crisis")
-      
-          if (RETRY_EVENT != false) {
-            RETRY_EVENT = false
-            MISSION_HALT = false
-          }
-        } else {
-          if(evResource != null && evResource != "all") {
-            console.log(crew.name + " failed to successfully navigate")
-            let bar = document.getElementById(`${evResource}-stat`)
-            let stat = parseInt(bar.style.width)
-            stat = stat - event.resource_cost;
-            bar.style.width = stat + "%";
-          } else if (evResource === "all") {
-            let resources = ["fuel", "med", "food", "o2"]
-            resources.forEach((resource) => {
-              let bar = document.getElementById(`${resource}-stat`)
-              let stat = parseInt(bar.style.width)
-              stat = stat - event.resource_cost;
-              bar.style.width = stat + "%";
-            })
-
-          } else if (evResource === null) {
-            RETRY_EVENT = event
-            MISSION_HALT = true
-          }
-
-
-        }
-    }
+  }
+}
 
     function buildCrew(crew, li, event=null) {
 
@@ -551,19 +619,21 @@ var MISSION_CREW = [];
 
 }
 
-  function buildEvents(events) {
-    setInterval( () => {
+function buildEvents(events) {
+  let rand = EVENT_TIMING[Math.floor(Math.random() * EVENT_TIMING.length)];
+  setTimeout(() => {
+    setInterval(() => {
       let rand = events[Math.floor(Math.random() * events.length)];
       console.log(rand)
       if (MISSION_COMPLETE === false) {
-        if (RETRY_EVENT != false) {
-          newEvent(RETRY_EVENT)
-        } else {
-          newEvent(rand)
-        }
+        newEvent(rand)
       }
-    }, 30000)
-  }
+    }, rand)
+  }, rand)
+
+
+
+}
 
 
     function missionProgress() {
@@ -657,42 +727,47 @@ var MISSION_CREW = [];
 
     }
 
-    function eventSuccess(crew, event) {
-      let success = false
-          let bonus = 0
-          if(crew.skill == event.skill) {
-            bonus = 100
-            if (bonus >= event.threshold) {
-              success = true;
-            } else {
-              let threshold = event.threshold - bonus
-              threshold -= crew.rating
-              if (threshold <= 0) {
-                success = true
-              } else {
-                let thresholdArray =  [...Array(threshold).keys()]
-                for (let i=0; i < crew.rating; i++){
-                  let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
-                  if (rand === thresholdArray[0]) {
-                    success = true
-                  }
-                }
-              }
-
-            }
-          } else {
-            let threshold = event.threshold
-            let thresholdArray = [...Array(threshold).keys()]
-            for (let i=0; i < crew.rating / 2; i++){
-              let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
-              if (rand === thresholdArray[0]) {
-                success = true
-              }
-
-            }
+function eventSuccess(crew, event) {
+  let success = false
+  EVENT_SUCCESS = false
+  let bonus = 0
+  if (crew.skill == event.skill) {
+    bonus = 100
+    if (bonus >= event.threshold) {
+      success = true;
+      EVENT_SUCCESS = true
+    } else {
+      let threshold = event.threshold - bonus
+      threshold -= crew.rating
+      if (threshold <= 0) {
+        success = true
+        EVENT_SUCCESS = true
+      } else {
+        let thresholdArray = [...Array(threshold).keys()]
+        for (let i = 0; i < crew.rating; i++) {
+          let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
+          if (rand === thresholdArray[0]) {
+            success = true
+            EVENT_SUCCESS = true
           }
-          return success
+        }
+      }
+
     }
+  } else {
+    let threshold = event.threshold
+    let thresholdArray = [...Array(threshold).keys()]
+    for (let i = 0; i < crew.rating / 2; i++) {
+      let rand = thresholdArray[Math.floor(Math.random() * thresholdArray.length)];
+      if (rand === thresholdArray[0]) {
+        success = true
+        EVENT_SUCCESS = true
+      }
+
+    }
+  }
+  return success
+}
 
     function gameState(remainingDistance) {
       if (remainingDistance === 0) {
@@ -824,6 +899,13 @@ function mockary(success) {
         cCommentDiv.textContent = rand1
         jCommentDiv.textContent = rand2
       }
+
+    setTimeout(function () {
+      let cComDiv = document.getElementById('cCom')
+      let jComDiv = document.getElementById('jCom')
+      cComDiv.remove();
+      jComDiv.remove();
+    }, 3000)
   }, 2000)
 }
 

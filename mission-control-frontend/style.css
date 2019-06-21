@@ -14,32 +14,66 @@ grid-row-gap: 13px;
 }
 
 
-
-
 .monitor {
-    grid-area: 1 / 3 / 3/ 3; 
-    background-color: black;
-    box-shadow: 10px 10px 29px -15px rgba(0,0,0,0.75);
-    min-height: 200px;
-	border: 10px solid gray;
-	max-width: 300px;
-	min-width: 100px;
-	
+  grid-area: 1 / 3 / 3/ 3; 
+  background-color: transparent;
+  box-shadow: 10px 10px 29px -15px rgba(0,0,0,0.75);
+  min-height: 200px;
+    border: 10px solid gray;
+    max-width: 300px;
+    min-width: 100px;
+    
 }
 
-.monitor-content {
 
-	margin: 5px 5px 5px;
+#personal-monitor {
+  border: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none; /*remove the resize handle on the bottom right*/
+
 }
+
+
+#personal-monitor-div {
+  width: 27.3rem;
+  height: 19rem;
+}
+
+#event-console {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  border: 5px solid gray;
+}
+
+#event-console-content {
+  color: red;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+#event-console-select {
+  font-weight: 600;
+  margin-top: 20px;
+}
+
 
 .monitor-content input {
-	overflow-wrap: break-word;
-	color: green;
+    overflow-wrap: break-word;
+    color: green;
   font-family: Courier;
   background-color: black;
   outline: none;
   border: none;
 }
+
+
 
 .buttons-right {
     grid-area: 1/ 4 / 4 / 5; 
@@ -694,4 +728,13 @@ position: absolute;
     /* width: 60%; */
     left: 21%;
     max-width: 100px;
+}
+
+.event-timer {
+position: relative;
+font-size: 2.5rem;
+margin-top: 3rem;
+text-align: center;
+color: red;
+font-weight: 300;
 }
